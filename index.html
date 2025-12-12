@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmaLoop - Farmacia Online Premium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #218590;
+            --primary-light: #2ba3a8;
+            --primary-dark: #1a6b77;
+            --green: #22c55e;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --accent: #f59e0b;
+        }
+
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        .logo-nav img {
+            height: 35px;
+            width: auto;
+            mix-blend-mode: normal;
+            filter: none;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .nav-btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(33, 133, 144, 0.3);
+        }
+
+        /* Hide sections */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(33, 133, 144, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -30px); }
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #64748b;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(33, 133, 144, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-giant {
+            width: 100%;
+            max-width: 450px;
+            animation: pulse-scale 3s ease-in-out infinite;
+            background: white !important;
+            filter: none !important;
+            mix-blend-mode: normal !important;
+        }
+
+        @keyframes pulse-scale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #64748b;
+            margin-bottom: 4rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* Products Grid */
+        .products-section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .product-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 180px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .product-item h4 {
+            font-size: 1rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-item p {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Store Styles */
+        /* Auth Styles */
+        .auth-container {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+        }
+
+        .auth-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .auth-card h2 {
+            text-align: center;
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+
+        .auth-card p {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group-auth {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group-auth label {
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .form-group-auth input {
+            padding: 0.8rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group-auth input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(33, 133, 144, 0.1);
+        }
+
+        .auth-button {
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .auth-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(33, 133, 144, 0.3);
+        }
+
+        .auth-toggle {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            color: #64748b;
+        }
+
+        .auth-toggle a {
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .auth-error {
+            background: #fee2e2;
+            color: var(--primary);
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .auth-success {
+            background: #dcfce7;
+            color: var(--green);
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--green);
+        }
+
+        .user-profile {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+        }
+
+        .store-view {
+            margin-top: 80px;
+        }
+
+        .store-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .filter-section h3 {
+            margin: 0 0 1rem 0;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--primary);
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-options label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .filter-options input[type="checkbox"] {
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .products-section-store {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .products-header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .sort-select {
+            padding: 0.6rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .store-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .store-product-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .store-product-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .store-product-image {
+            width: 100%;
+            height: 80px;
+            background: transparent;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .store-product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .store-product-category {
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .store-product-name {
+            font-size: 14px;
+            font-weight: 500;
+            margin: 0 0 0.5rem 0;
+            min-height: 35px;
+            line-height: 1.3;
+        }
+
+        .store-product-description {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .store-product-price {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 0 0 1rem 0;
+        }
+
+        .store-product-unit {
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 0.6rem 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            margin-top: auto;
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .cart-panel {
+            position: fixed;
+            right: 0;
+            top: 80px;
+            width: 400px;
+            height: calc(100vh - 80px);
+            background: white;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-panel.hidden {
+            transform: translateX(100%);
+        }
+
+        .cart-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .cart-header button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        @keyframes slideOut {
+            from { transform: translateX(0); }
+            to { transform: translateX(100%); }
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #64748b;
+            grid-column: 1/-1;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid #334155;
+        }
+
+        footer p {
+            color: #94a3b8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                margin-top: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .nav-buttons {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .logo-giant {
+                max-width: 300px;
+            }
+
+            .store-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .store-products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo-nav" onclick="goToHome()">
+            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/310cb5c2-90be-4fc1-b7f3-debc9c671e83" alt="PharmaLoop" style="height: 40px; width: auto; background: transparent;">
+            <span>PharmaLoop</span>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-btn nav-btn-secondary" id="cartButton" onclick="toggleCart()" style="display:none;">🛒 Carrito (0)</button>
+            <button class="nav-btn nav-btn-secondary" id="navProducts" onclick="goToStore()" style="display:none;">Productos</button>
+            <button class="nav-btn nav-btn-primary" id="navHome" onclick="goToHome()" style="display:none;">Inicio</button>
+            <button class="nav-btn nav-btn-secondary" id="navLogout" onclick="logout()" style="display:none;">Cerrar Sesión</button>
+            <button class="nav-btn nav-btn-secondary" id="navLogin" onclick="goToLogin()">Iniciar Sesión</button>
+        </div>
+    </nav>
+
+    <!-- Cart Panel -->
+    <div class="cart-panel hidden" id="cartPanel">
+        <div class="cart-header">
+            <h2>Mi Carrito</h2>
+            <button onclick="toggleCart()">✕</button>
+        </div>
+        <div id="cartList" style="flex: 1;"></div>
+    </div>
+
+    <!-- AUTH PAGE -->
+    <div id="authPage" class="hidden">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div id="loginForm">
+                    <h2>Bienvenido</h2>
+                    <p>Inicia sesión en tu cuenta PharmaLoop</p>
+                    <div id="loginError"></div>
+                    <form class="auth-form" onsubmit="handleLogin(event)">
+                        <div class="form-group-auth">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" placeholder="tu@email.com" required>
+                        </div>
+                        <div class="form-group-auth">
+                            <label for="loginPassword">Contraseña</label>
+                            <input type="password" id="loginPassword" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="auth-button">Iniciar Sesión</button>
+                    </form>
+                    <div class="auth-toggle">
+                        ¿No tienes cuenta? <a onclick="toggleAuthForm()">Regístrate aquí</a>
+                    </div>
+                </div>
+
+                <div id="registerForm" class="hidden">
+                    <h2>Crear Cuenta</h2>
+                    <p>Únete a PharmaLoop hoy mismo</p>
+                    <div id="registerError"></div>
+                    <form class="auth-form" onsubmit="handleRegister(event)">
+                        <div class="form-group-auth">
+                            <label for="registerName">Nombre Completo</label>
+                            <input type="text" id="registerName" placeholder="Juan Pérez" required>
+                        </div>
+                        <div class="form-group-auth">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" placeholder="tu@email.com" required>
+                        </div>
+                        <div class="form-group-auth">
+                            <label for="registerPassword">Contraseña</label>
+                            <input type="password" id="registerPassword" placeholder="••••••••" minlength="6" required>
+                        </div>
+                        <div class="form-group-auth">
+                            <label for="registerPasswordConfirm">Confirmar Contraseña</label>
+                            <input type="password" id="registerPasswordConfirm" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="auth-button">Crear Cuenta</button>
+                    </form>
+                    <div class="auth-toggle">
+                        ¿Ya tienes cuenta? <a onclick="toggleAuthForm()">Inicia sesión aquí</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFILE PAGE -->
+    <div id="profilePage" class="hidden">
+        <div style="margin-top: 80px; max-width: 1200px; margin-left: auto; margin-right: auto; padding: 2rem;">
+            <div class="user-profile">
+                <div class="user-avatar" id="userAvatar">👤</div>
+                <h1 id="userName" style="margin: 0 0 0.5rem 0;">Usuario</h1>
+                <p id="userEmail" style="color: #64748b; margin: 0 0 2rem 0;">email@example.com</p>
+                <button class="btn btn-primary" onclick="goToStore()" style="margin-right: 1rem;">Ir a Tienda</button>
+                <button class="btn btn-secondary" onclick="logout()">Cerrar Sesión</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LANDING PAGE -->
+    <div id="landingPage">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1>Tu Salud es Nuestra Misión</h1>
+                    <p>Descubre nuestra farmacia online con los mejores productos naturales y fármacos de calidad. Entrega rápida en 24-48 horas a toda Venezuela.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="goToStore()">Iniciar Compra</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/310cb5c2-90be-4fc1-b7f3-debc9c671e83" alt="PharmaLoop Logo" class="logo-giant">
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <h2 class="section-title">¿Por Qué Elegir PharmaLoop?</h2>
+            <p class="section-subtitle">Somos tu aliado en salud con los mejores estándares de calidad</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3>Envío Rápido</h3>
+                    <p>Recibe tus medicamentos en 24-48 horas hábiles en toda Venezuela.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3>Productos Verificados</h3>
+                    <p>Todos nuestros productos cumplen con los estándares farmacéuticos más rigurosos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Asesoría Profesional</h3>
+                    <p>Acceso a farmacéuticos especializados para resolver tus dudas en cualquier momento.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Compra Segura</h3>
+                    <p>Transacciones encriptadas y protección total de tus datos personales.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Productos Naturales</h3>
+                    <p>Amplio catálogo de suplementos y productos naturales de alta calidad.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Mejores Precios</h3>
+                    <p>Ofertas competitivas y descuentos especiales para clientes frecuentes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Preview -->
+        <section class="products-section">
+            <h2 class="section-title">Nuestro Catálogo</h2>
+            <p class="section-subtitle">Más de 250 productos disponibles en nuestro almacén</p>
+            <div class="products-grid">
+                <div class="product-item">
+                    <div class="product-image">
+                        <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/bcac02e8-82eb-49a1-903b-2b4f0edef4d0" alt="Blister Cápsulas">
+                    </div>
+                    <h4>Cápsulas</h4>
+                    <p>Vitaminas y suplementos</p>
+                    <div class="product-price">Desde 8€</div>
+                </div>
+                <div class="product-item">
+                    <div class="product-image">
+                        <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/554e6315-e375-493d-adf4-cf9232f3b0d7" alt="Blister Comprimidos">
+                    </div>
+                    <h4>Comprimidos</h4>
+                    <p>Analgésicos y antihistamínicos</p>
+                    <div class="product-price">Desde 4€</div>
+                </div>
+                <div class="product-item">
+                    <div class="product-image">
+                        <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/0bcecf05-e611-49a0-a770-f07a18197966" alt="Frasco Vidrio">
+                    </div>
+                    <h4>Frascos Especiales</h4>
+                    <p>Inyectables de alta potencia</p>
+                    <div class="product-price">Desde 115€</div>
+                </div>
+                <div class="product-item">
+                    <div class="product-image">
+                        <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/affac7e1-e0a8-44f7-88ae-f55584ee3933" alt="Frascos con Cápsulas y Comprimidos">
+                    </div>
+                    <h4>Frascos con Cápsulas y Comprimidos</h4>
+                    <p>Antigripales y expectorantes</p>
+                    <div class="product-price">Desde 4€</div>
+                </div>
+                <div class="product-item">
+                    <div class="product-image">
+                        <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/99ee9dca-0c9b-4e59-8c95-b51c740ba1f9" alt="Más productos">
+                    </div>
+                    <h4>Y Mucho Más</h4>
+                    <p>300+ productos en stock</p>
+                    <div class="product-price">Ver Todo</div>
+                </div>
+                <div class="product-item" onclick="goToStore()" style="cursor:pointer;">
+                    <div class="product-image" style="font-size:3rem;">🛍️</div>
+                    <h4>Explorar Tienda</h4>
+                    <p>Accede al catálogo completo</p>
+                    <div class="product-price">→</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta">
+            <h2>¿Listo para Mejorar tu Salud?</h2>
+            <p>Únete a miles de clientes satisfechos que confían en PharmaLoop para sus necesidades farmacéuticas. Descubre nuestra amplia selección de productos premium.</p>
+            <button class="btn btn-primary" style="background: white; color: var(--primary); font-weight: 700;" onclick="goToStore()">Explorar Tienda Completa</button>
+        </section>
+
+        <!-- Academic Notice -->
+        <section style="background: #f3f4f6; padding: 2rem; text-align: center; border-top: 2px solid #e5e7eb;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <p style="color: #6b7280; font-size: 0.95rem; margin: 0; line-height: 1.6;">
+                    <strong style="color: #374151;">⚠️ Aviso Importante:</strong> Esta página web es un proyecto de <strong>FINES ACADÉMICOS</strong>. 
+                    PharmaLoop es una plataforma educativa diseñada para propósitos de aprendizaje y demostración. 
+                    No es un sitio farmacéutico real y no realiza transacciones comerciales reales.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- PAYMENT PAGE -->
+    <div id="paymentPage" class="hidden">
+        <div style="margin-top: 80px; min-height: calc(100vh - 80px); background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%); padding: 2rem;">
+            <div style="max-width: 900px; margin: 0 auto;">
+                <button onclick="cancelPayment()" style="margin-bottom: 2rem; padding: 0.6rem 1.5rem; background: transparent; color: var(--primary); border: 2px solid var(--primary); border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">← Volver al Carrito</button>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <!-- Formulario de Pago -->
+                    <div id="paymentForm">
+                        <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
+                            <h2 style="margin: 0 0 1.5rem 0; font-size: 1.8rem; color: var(--dark);">💳 Detalles de Pago</h2>
+                            
+                            <form onsubmit="processPayment(event)" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark);">Titular de la Tarjeta</label>
+                                    <input type="text" id="cardName" placeholder="Juan Pérez García" style="width: 100%; padding: 0.8rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.95rem;" required>
+                                </div>
+
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark);">Número de Tarjeta</label>
+                                    <input type="text" id="cardNumber" placeholder="4532 1234 5678 9010" maxlength="19" style="width: 100%; padding: 0.8rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.95rem; letter-spacing: 0.1em;" oninput="formatCardNumber(this)" required>
+                                </div>
+
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark);">Vencimiento</label>
+                                        <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" style="width: 100%; padding: 0.8rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.95rem;" oninput="formatExpiry(this)" required>
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark);">CVC</label>
+                                        <input type="text" id="cardCVC" placeholder="123" maxlength="4" style="width: 100%; padding: 0.8rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.95rem;" required>
+                                    </div>
+                                </div>
+
+                                <div style="background: #f0fdf4; border-left: 4px solid var(--green); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                    <p style="margin: 0; color: #166534; font-size: 0.9rem;">
+                                        <strong>🔒 Transacción Segura:</strong> Tu información de pago está protegida con encriptación SSL
+                                    </p>
+                                </div>
+
+                                <button type="submit" style="width: 100%; padding: 1rem; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s ease;">Procesar Pago</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Panel de Resumen -->
+                    <div>
+                        <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); margin-bottom: 2rem;">
+                            <h3 style="margin: 0 0 1.5rem 0; font-size: 1.3rem; color: var(--dark);">📋 Resumen del Pedido</h3>
+                            
+                            <div style="max-height: 300px; overflow-y: auto; margin-bottom: 1.5rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 1.5rem;">
+                                <div id="paymentItems"></div>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8fafc; border-radius: 8px; margin-bottom: 1rem;">
+                                <span style="font-size: 0.95rem; color: #64748b;">Subtotal:</span>
+                                <span id="paymentTotal" style="font-size: 1.1rem; font-weight: 600; color: var(--dark);">0.00€</span>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8fafc; border-radius: 8px; margin-bottom: 1rem;">
+                                <span style="font-size: 0.95rem; color: #64748b;">Envío:</span>
+                                <span style="font-size: 1.1rem; font-weight: 600; color: var(--green);">Gratis</span>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--primary); border-radius: 8px; color: white;">
+                                <span style="font-size: 1.1rem; font-weight: 600;">Total a Pagar:</span>
+                                <span id="paymentTotalFinal" style="font-size: 1.3rem; font-weight: 700;">0.00€</span>
+                            </div>
+
+                            <div style="margin-top: 1rem; padding: 1rem; background: #e0f2fe; border-radius: 8px; border-left: 4px solid var(--primary);">
+                                <p style="margin: 0; color: #0c4a6e; font-size: 0.9rem;">
+                                    <strong>✓ Items:</strong> <span id="itemsCount">0</span><br>
+                                    <strong>✓ Entrega:</strong> 24-48h en Venezuela<br>
+                                    <strong>✓ Garantía:</strong> Compra 100% segura
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
+                            <p style="margin: 0; color: #64748b; font-size: 0.85rem; line-height: 1.6;">
+                                Al hacer clic en "Procesar Pago" aceptas nuestros términos y condiciones. 
+                                <strong>Nota Importante:</strong> Este es un proyecto educativo. 
+                                No se realizarán transacciones reales.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Procesando Pago -->
+                <div id="processingPayment" style="display: none; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 5000;">
+                    <div style="background: white; padding: 3rem; border-radius: 12px; text-align: center; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);">
+                        <div style="font-size: 3rem; margin-bottom: 1rem; animation: spin 1s linear infinite;">⏳</div>
+                        <h2 style="margin: 0 0 0.5rem 0; color: var(--dark);">Procesando Pago...</h2>
+                        <p style="margin: 0; color: #64748b; font-size: 0.95rem;">Por favor espera mientras verificamos tu información</p>
+                    </div>
+                </div>
+
+                <!-- Pago Exitoso -->
+                <div id="paymentSuccess" style="display: none; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 5000;">
+                    <div style="background: white; padding: 3rem; border-radius: 12px; text-align: center; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); max-width: 500px;">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">✅</div>
+                        <h2 style="margin: 0 0 1rem 0; color: var(--green); font-size: 1.8rem;">¡Pago Exitoso!</h2>
+                        <p style="margin: 0 0 1.5rem 0; color: #64748b; font-size: 0.95rem; line-height: 1.6;">
+                            Tu pedido ha sido procesado correctamente. Recibirás un email con los detalles de tu compra y número de seguimiento en los próximos minutos.
+                        </p>
+                        <button onclick="completeOrder()" style="width: 100%; padding: 1rem; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1rem;">Volver al Inicio</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STORE PAGE -->
+    <div id="storePage" class="hidden">
+        <div class="store-view">
+            <div class="store-container">
+                <div class="sidebar">
+                    <div class="filter-section">
+                        <h3>Categorías</h3>
+                        <div class="filter-options" id="categoriesFilter"></div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Rango de Precio</h3>
+                        <div class="filter-options">
+                            <label><input type="checkbox" value="0-25" onchange="filterProducts()"> 0€ - 25€</label>
+                            <label><input type="checkbox" value="25-50" onchange="filterProducts()"> 25€ - 50€</label>
+                            <label><input type="checkbox" value="50-100" onchange="filterProducts()"> 50€ - 100€</label>
+                            <label><input type="checkbox" value="100+" onchange="filterProducts()"> 100€+</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="products-section-store">
+                    <div class="products-header">
+                        <div style="flex: 1;">
+                            <input type="text" id="searchInput" placeholder="🔍 Buscar productos..." onkeyup="filterProducts()" style="width: 100%; padding: 0.6rem 1rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
+                        </div>
+                        <select class="sort-select" onchange="sortProducts()">
+                            <option value="relevancia">Ordenar por: Relevancia</option>
+                            <option value="precio-asc">Menor precio</option>
+                            <option value="precio-desc">Mayor precio</option>
+                            <option value="nombre">Nombre (A-Z)</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; margin-bottom: 1rem;">
+                        <h2 id="productCount" style="margin: 0;">Productos (250)</h2>
+                    </div>
+                    <div class="store-products-grid" id="productsGrid"></div>
+                </div>
+</parameter>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 PharmaLoop. Todos los derechos reservados. | Farmacia Online Autorizada</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">Envíos a toda Venezuela | Atención profesional 24/7</p>
+    </footer>
+
+    <script>
+        // Datos de 350 productos
+        const allProducts = [{"id": 1, "name": "Calcio + Vitamina D - Original", "description": "Suplemento de calcio con vitamina D para fortalecer huesos", "category": "Suplementos", "unit": "Blister 30 cápsulas", "price": 25.32}, {"id": 2, "name": "Calcio + Vitamina D - Genérico", "description": "Suplemento de calcio con vitamina D para fortalecer huesos", "category": "Suplementos", "unit": "Blister 30 cápsulas", "price": 25.32}, {"id": 3, "name": "Calcio + Vitamina D - Premium", "description": "Suplemento de calcio con vitamina D para fortalecer huesos", "category": "Suplementos", "unit": "Blister 30 cápsulas", "price": 25.32}, {"id": 4, "name": "Calcio + Vitamina D - Extra Fuerte", "description": "Suplemento de calcio con vitamina D para fortalecer huesos", "category": "Suplementos", "unit": "Blister 30 cápsulas", "price": 25.32}, {"id": 5, "name": "Calcio + Vitamina D - Pack 2", "description": "Suplemento de calcio con vitamina D para fortalecer huesos", "category": "Suplementos", "unit": "Blister 30 cápsulas", "price": 25.32}, {"id": 6, "name": "Omega-3 1000mg - Original", "description": "Ácidos grasos omega-3 de origen marino", "category": "Suplementos", "unit": "Frasco 60 cápsulas", "price": 45.82}, {"id": 7, "name": "Omega-3 1000mg - Genérico", "description": "Ácidos grasos omega-3 de origen marino", "category": "Suplementos", "unit": "Frasco 60 cápsulas", "price": 45.82}, {"id": 8, "name": "Omega-3 1000mg - Premium", "description": "Ácidos grasos omega-3 de origen marino", "category": "Suplementos", "unit": "Frasco 60 cápsulas", "price": 45.82}, {"id": 9, "name": "Omega-3 1000mg - Extra Fuerte", "description": "Ácidos grasos omega-3 de origen marino", "category": "Suplementos", "unit": "Frasco 60 cápsulas", "price": 45.82}, {"id": 10, "name": "Omega-3 1000mg - Pack 2", "description": "Ácidos grasos omega-3 de origen marino", "category": "Suplementos", "unit": "Frasco 60 cápsulas", "price": 45.82}, {"id": 11, "name": "Magnesio Quelado - Original", "description": "Magnesio en forma quelada para mejor absorción", "category": "Suplementos", "unit": "Blister 30 comprimidos", "price": 32.15}, {"id": 12, "name": "Magnesio Quelado - Genérico", "description": "Magnesio en forma quelada para mejor absorción", "category": "Suplementos", "unit": "Blister 30 comprimidos", "price": 32.15}, {"id": 13, "name": "Magnesio Quelado - Premium", "description": "Magnesio en forma quelada para mejor absorción", "category": "Suplementos", "unit": "Blister 30 comprimidos", "price": 32.15}, {"id": 14, "name": "Magnesio Quelado - Extra Fuerte", "description": "Magnesio en forma quelada para mejor absorción", "category": "Suplementos", "unit": "Blister 30 comprimidos", "price": 32.15}, {"id": 15, "name": "Magnesio Quelado - Pack 2", "description": "Magnesio en forma quelada para mejor absorción", "category": "Suplementos", "unit": "Blister 30 comprimidos", "price": 32.15}, {"id": 16, "name": "Zinc Plus - Original", "description": "Zinc con vitamina C para reforzar inmunidad", "category": "Suplementos", "unit": "Frasco 100 comprimidos", "price": 18.76}, {"id": 17, "name": "Zinc Plus - Genérico", "description": "Zinc con vitamina C para reforzar inmunidad", "category": "Suplementos", "unit": "Frasco 100 comprimidos", "price": 18.76}, {"id": 18, "name": "Zinc Plus - Premium", "description": "Zinc con vitamina C para reforzar inmunidad", "category": "Suplementos", "unit": "Frasco 100 comprimidos", "price": 18.76}, {"id": 19, "name": "Zinc Plus - Extra Fuerte", "description": "Zinc con vitamina C para reforzar inmunidad", "category": "Suplementos", "unit": "Frasco 100 comprimidos", "price": 18.76}, {"id": 20, "name": "Zinc Plus - Pack 2", "description": "Zinc con vitamina C para reforzar inmunidad", "category": "Suplementos", "unit": "Frasco 100 comprimidos", "price": 18.76}, {"id": 21, "name": "Hierro Ferroso 25mg - Original", "description": "Suplemento de hierro para anemia", "category": "Suplementos", "unit": "Blister 30 cápsulas", "price": 27.84}, {"id": 22, "name": "Hierro Ferroso 25mg - Genérico", "description": "Suplemento de hierro para anemia", "category": "Suplementos", "unit": "Blister 30 cápsulas", "price": 27.84}, {"id": 23, "name": "Hierro Ferroso 25mg - Premium", "description": "Suplemento de hierro para anemia", "category": "Suplementos", "unit": "Blister 30 cápsulas", "price": 27.84}, {"id": 24, "name": "Hierro Ferroso 25mg - Extra Fuerte", "description": "Suplemento de hierro para anemia", "category": "Suplementos", "unit": "Blister 30 cápsulas", "price": 27.84}, {"id": 25, "name": "Hierro Ferroso 25mg - Pack 2", "description": "Suplemento de hierro para anemia", "category": "Suplementos", "unit": "Blister 30 cápsulas", "price": 27.84}, {"id": 26, "name": "Coenzima Q10 - Original", "description": "Antioxidante para salud cardiovascular", "category": "Suplementos", "unit": "Frasco 60 cápsulas", "price": 56.23}, {"id": 27, "name": "Coenzima Q10 - Genérico", "description": "Antioxidante para salud cardiovascular", "category": "Suplementos", "unit": "Frasco 60 cápsulas", "price": 56.23}, {"id": 28, "name": "Coenzima Q10 - Premium", "description": "Antioxidante para salud cardiovascular", "category": "Suplementos", "unit": "Frasco 60 cápsulas", "price": 56.23}, {"id": 29, "name": "Coenzima Q10 - Extra Fuerte", "description": "Antioxidante para salud cardiovascular", "category": "Suplementos", "unit": "Frasco 60 cápsulas", "price": 56.23}, {"id": 30, "name": "Coenzima Q10 - Pack 2", "description": "Antioxidante para salud cardiovascular", "category": "Suplementos", "unit": "Frasco 60 cápsulas", "price": 56.23}, {"id": 31, "name": "Selenio Orgánico - Original", "description": "Oligoelemento esencial para inmunidad", "category": "Suplementos", "unit": "Blister 30 comprimidos", "price": 24.67}, {"id": 32, "name": "Selenio Orgánico - Genérico", "description": "Oligoelemento esencial para inmunidad", "category": "Suplementos", "unit": "Blister 30 comprimidos", "price": 24.67}, {"id": 33, "name": "Selenio Orgánico - Premium", "description": "Oligoelemento esencial para inmunidad", "category": "Suplementos", "unit": "Blister 30 comprimidos", "price": 24.67}, {"id": 34, "name": "Selenio Orgánico - Extra Fuerte", "description": "Oligoelemento esencial para inmunidad", "category": "Suplementos", "unit": "Blister 30 comprimidos", "price": 24.67}, {"id": 35, "name": "Selenio Orgánico - Pack 2", "description": "Oligoelemento esencial para inmunidad", "category": "Suplementos", "unit": "Blister 30 comprimidos", "price": 24.67}, {"id": 36, "name": "Lisina 500mg - Original", "description": "Aminoácido esencial para síntesis proteica", "category": "Suplementos", "unit": "Frasco 100 comprimidos", "price": 21.54}, {"id": 37, "name": "Lisina 500mg - Genérico", "description": "Aminoácido esencial para síntesis proteica", "category": "Suplementos", "unit": "Frasco 100 comprimidos", "price": 21.54}, {"id": 38, "name": "Lisina 500mg - Premium", "description": "Aminoácido esencial para síntesis proteica", "category": "Suplementos", "unit": "Frasco 100 comprimidos", "price": 21.54}, {"id": 39, "name": "Lisina 500mg - Extra Fuerte", "description": "Aminoácido esencial para síntesis proteica", "category": "Suplementos", "unit": "Frasco 100 comprimidos", "price": 21.54}, {"id": 40, "name": "Lisina 500mg - Pack 2", "description": "Aminoácido esencial para síntesis proteica", "category": "Suplementos", "unit": "Frasco 100 comprimidos", "price": 21.54}, {"id": 41, "name": "Cúrcuma + Pimienta - Original", "description": "Antiinflamatorio natural con biodisponibilidad mejorada", "category": "Suplementos", "unit": "Blister 30 cápsulas", "price": 38.91}, {"id": 42, "name": "Cúrcuma + Pimienta - Genérico", "description": "Antiinflamatorio natural con biodisponibilidad mejorada", "category": "Suplementos", "unit": "Blister 30 cápsulas", "price": 38.91}, {"id": 43, "name": "Cúrcuma + Pimienta - Premium", "description": "Antiinflamatorio natural con biodisponibilidad mejorada", "category": "Suplementos", "unit": "Blister 30 cápsulas", "price": 38.91}, {"id": 44, "name": "Cúrcuma + Pimienta - Extra Fuerte", "description": "Antiinflamatorio natural con biodisponibilidad mejorada", "category": "Suplementos", "unit": "Blister 30 cápsulas", "price": 38.91}, {"id": 45, "name": "Cúrcuma + Pimienta - Pack 2", "description": "Antiinflamatorio natural con biodisponibilidad mejorada", "category": "Suplementos", "unit": "Blister 30 cápsulas", "price": 38.91}, {"id": 46, "name": "Levadura de Cerveza - Original", "description": "Fuente natural de vitaminas B y proteínas", "category": "Suplementos", "unit": "Frasco 200 comprimidos", "price": 16.45}, {"id": 47, "name": "Levadura de Cerveza - Genérico", "description": "Fuente natural de vitaminas B y proteínas", "category": "Suplementos", "unit": "Frasco 200 comprimidos", "price": 16.45}, {"id": 48, "name": "Levadura de Cerveza - Premium", "description": "Fuente natural de vitaminas B y proteínas", "category": "Suplementos", "unit": "Frasco 200 comprimidos", "price": 16.45}, {"id": 49, "name": "Levadura de Cerveza - Extra Fuerte", "description": "Fuente natural de vitaminas B y proteínas", "category": "Suplementos", "unit": "Frasco 200 comprimidos", "price": 16.45}, {"id": 50, "name": "Levadura de Cerveza - Pack 2", "description": "Fuente natural de vitaminas B y proteínas", "category": "Suplementos", "unit": "Frasco 200 comprimidos", "price": 16.45}, {"id": 51, "name": "Vitamina C 500mg - Original", "description": "Vitamina C pura para inmunidad", "category": "Vitaminas", "unit": "Frasco 100 comprimidos", "price": 12.34}, {"id": 52, "name": "Vitamina C 500mg - Genérico", "description": "Vitamina C pura para inmunidad", "category": "Vitaminas", "unit": "Frasco 100 comprimidos", "price": 12.34}, {"id": 53, "name": "Vitamina C 500mg - Premium", "description": "Vitamina C pura para inmunidad", "category": "Vitaminas", "unit": "Frasco 100 comprimidos", "price": 12.34}, {"id": 54, "name": "Vitamina C 500mg - Extra Fuerte", "description": "Vitamina C pura para inmunidad", "category": "Vitaminas", "unit": "Frasco 100 comprimidos", "price": 12.34}, {"id": 55, "name": "Vitamina C 500mg - Pack 2", "description": "Vitamina C pura para inmunidad", "category": "Vitaminas", "unit": "Frasco 100 comprimidos", "price": 12.34}, {"id": 56, "name": "Vitamina B Complex - Original", "description": "Complejo B con todas las vitaminas del grupo B", "category": "Vitaminas", "unit": "Blister 20 comprimidos", "price": 8.92}, {"id": 57, "name": "Vitamina B Complex - Genérico", "description": "Complejo B con todas las vitaminas del grupo B", "category": "Vitaminas", "unit": "Blister 20 comprimidos", "price": 8.92}, {"id": 58, "name": "Vitamina B Complex - Premium", "description": "Complejo B con todas las vitaminas del grupo B", "category": "Vitaminas", "unit": "Blister 20 comprimidos", "price": 8.92}, {"id": 59, "name": "Vitamina B Complex - Extra Fuerte", "description": "Complejo B con todas las vitaminas del grupo B", "category": "Vitaminas", "unit": "Blister 20 comprimidos", "price": 8.92}, {"id": 60, "name": "Vitamina B Complex - Pack 2", "description": "Complejo B con todas las vitaminas del grupo B", "category": "Vitaminas", "unit": "Blister 20 comprimidos", "price": 8.92}, {"id": 61, "name": "Vitamina D3 1000UI - Original", "description": "Vitamina D3 para absorción de calcio", "category": "Vitaminas", "unit": "Frasco 60 cápsulas", "price": 14.56}, {"id": 62, "name": "Vitamina D3 1000UI - Genérico", "description": "Vitamina D3 para absorción de calcio", "category": "Vitaminas", "unit": "Frasco 60 cápsulas", "price": 14.56}, {"id": 63, "name": "Vitamina D3 1000UI - Premium", "description": "Vitamina D3 para absorción de calcio", "category": "Vitaminas", "unit": "Frasco 60 cápsulas", "price": 14.56}, {"id": 64, "name": "Vitamina D3 1000UI - Extra Fuerte", "description": "Vitamina D3 para absorción de calcio", "category": "Vitaminas", "unit": "Frasco 60 cápsulas", "price": 14.56}, {"id": 65, "name": "Vitamina D3 1000UI - Pack 2", "description": "Vitamina D3 para absorción de calcio", "category": "Vitaminas", "unit": "Frasco 60 cápsulas", "price": 14.56}, {"id": 66, "name": "Vitamina E 400UI - Original", "description": "Vitamina E para protección celular", "category": "Vitaminas", "unit": "Blister 30 cápsulas", "price": 18.45}, {"id": 67, "name": "Vitamina E 400UI - Genérico", "description": "Vitamina E para protección celular", "category": "Vitaminas", "unit": "Blister 30 cápsulas", "price": 18.45}, {"id": 68, "name": "Vitamina E 400UI - Premium", "description": "Vitamina E para protección celular", "category": "Vitaminas", "unit": "Blister 30 cápsulas", "price": 18.45}, {"id": 69, "name": "Vitamina E 400UI - Extra Fuerte", "description": "Vitamina E para protección celular", "category": "Vitaminas", "unit": "Blister 30 cápsulas", "price": 18.45}, {"id": 70, "name": "Vitamina E 400UI - Pack 2", "description": "Vitamina E para protección celular", "category": "Vitaminas", "unit": "Blister 30 cápsulas", "price": 18.45}, {"id": 71, "name": "Multivitamínico Diario - Original", "description": "Completo multivitamínico con minerales", "category": "Vitaminas", "unit": "Frasco 90 comprimidos", "price": 24.78}, {"id": 72, "name": "Multivitamínico Diario - Genérico", "description": "Completo multivitamínico con minerales", "category": "Vitaminas", "unit": "Frasco 90 comprimidos", "price": 24.78}, {"id": 73, "name": "Multivitamínico Diario - Premium", "description": "Completo multivitamínico con minerales", "category": "Vitaminas", "unit": "Frasco 90 comprimidos", "price": 24.78}, {"id": 74, "name": "Multivitamínico Diario - Extra Fuerte", "description": "Completo multivitamínico con minerales", "category": "Vitaminas", "unit": "Frasco 90 comprimidos", "price": 24.78}, {"id": 75, "name": "Multivitamínico Diario - Pack 2", "description": "Completo multivitamínico con minerales", "category": "Vitaminas", "unit": "Frasco 90 comprimidos", "price": 24.78}, {"id": 76, "name": "Ácido Fólico 400mcg - Original", "description": "Vitamina B9 esencial en embarazo", "category": "Vitaminas", "unit": "Blister 30 comprimidos", "price": 10.23}, {"id": 77, "name": "Ácido Fólico 400mcg - Genérico", "description": "Vitamina B9 esencial en embarazo", "category": "Vitaminas", "unit": "Blister 30 comprimidos", "price": 10.23}, {"id": 78, "name": "Ácido Fólico 400mcg - Premium", "description": "Vitamina B9 esencial en embarazo", "category": "Vitaminas", "unit": "Blister 30 comprimidos", "price": 10.23}, {"id": 79, "name": "Ácido Fólico 400mcg - Extra Fuerte", "description": "Vitamina B9 esencial en embarazo", "category": "Vitaminas", "unit": "Blister 30 comprimidos", "price": 10.23}, {"id": 80, "name": "Ácido Fólico 400mcg - Pack 2", "description": "Vitamina B9 esencial en embarazo", "category": "Vitaminas", "unit": "Blister 30 comprimidos", "price": 10.23}, {"id": 81, "name": "Vitamina B12 Cianocobalamina - Original", "description": "Vitamina B12 para energía y metabolismo", "category": "Vitaminas", "unit": "Frasco 60 comprimidos", "price": 13.67}, {"id": 82, "name": "Vitamina B12 Cianocobalamina - Genérico", "description": "Vitamina B12 para energía y metabolismo", "category": "Vitaminas", "unit": "Frasco 60 comprimidos", "price": 13.67}, {"id": 83, "name": "Vitamina B12 Cianocobalamina - Premium", "description": "Vitamina B12 para energía y metabolismo", "category": "Vitaminas", "unit": "Frasco 60 comprimidos", "price": 13.67}, {"id": 84, "name": "Vitamina B12 Cianocobalamina - Extra Fuerte", "description": "Vitamina B12 para energía y metabolismo", "category": "Vitaminas", "unit": "Frasco 60 comprimidos", "price": 13.67}, {"id": 85, "name": "Vitamina B12 Cianocobalamina - Pack 2", "description": "Vitamina B12 para energía y metabolismo", "category": "Vitaminas", "unit": "Frasco 60 comprimidos", "price": 13.67}, {"id": 86, "name": "Niacina 500mg - Original", "description": "Vitamina B3 para metabolismo energético", "category": "Vitaminas", "unit": "Blister 30 comprimidos", "price": 9.87}, {"id": 87, "name": "Niacina 500mg - Genérico", "description": "Vitamina B3 para metabolismo energético", "category": "Vitaminas", "unit": "Blister 30 comprimidos", "price": 9.87}, {"id": 88, "name": "Niacina 500mg - Premium", "description": "Vitamina B3 para metabolismo energético", "category": "Vitaminas", "unit": "Blister 30 comprimidos", "price": 9.87}, {"id": 89, "name": "Niacina 500mg - Extra Fuerte", "description": "Vitamina B3 para metabolismo energético", "category": "Vitaminas", "unit": "Blister 30 comprimidos", "price": 9.87}, {"id": 90, "name": "Niacina 500mg - Pack 2", "description": "Vitamina B3 para metabolismo energético", "category": "Vitaminas", "unit": "Blister 30 comprimidos", "price": 9.87}, {"id": 91, "name": "Vitamina A 10000UI - Original", "description": "Vitamina A para visión y piel", "category": "Vitaminas", "unit": "Frasco 100 cápsulas", "price": 15.34}, {"id": 92, "name": "Vitamina A 10000UI - Genérico", "description": "Vitamina A para visión y piel", "category": "Vitaminas", "unit": "Frasco 100 cápsulas", "price": 15.34}, {"id": 93, "name": "Vitamina A 10000UI - Premium", "description": "Vitamina A para visión y piel", "category": "Vitaminas", "unit": "Frasco 100 cápsulas", "price": 15.34}, {"id": 94, "name": "Vitamina A 10000UI - Extra Fuerte", "description": "Vitamina A para visión y piel", "category": "Vitaminas", "unit": "Frasco 100 cápsulas", "price": 15.34}, {"id": 95, "name": "Vitamina A 10000UI - Pack 2", "description": "Vitamina A para visión y piel", "category": "Vitaminas", "unit": "Frasco 100 cápsulas", "price": 15.34}, {"id": 96, "name": "Colina + Inositol - Original", "description": "Nutrientes para función hepática y cerebral", "category": "Vitaminas", "unit": "Blister 30 cápsulas", "price": 21.45}, {"id": 97, "name": "Colina + Inositol - Genérico", "description": "Nutrientes para función hepática y cerebral", "category": "Vitaminas", "unit": "Blister 30 cápsulas", "price": 21.45}, {"id": 98, "name": "Colina + Inositol - Premium", "description": "Nutrientes para función hepática y cerebral", "category": "Vitaminas", "unit": "Blister 30 cápsulas", "price": 21.45}, {"id": 99, "name": "Colina + Inositol - Extra Fuerte", "description": "Nutrientes para función hepática y cerebral", "category": "Vitaminas", "unit": "Blister 30 cápsulas", "price": 21.45}, {"id": 100, "name": "Colina + Inositol - Pack 2", "description": "Nutrientes para función hepática y cerebral", "category": "Vitaminas", "unit": "Blister 30 cápsulas", "price": 21.45}, {"id": 101, "name": "Amoxicilina 500mg - Original", "description": "Antibiótico de amplio espectro", "category": "Antibióticos", "unit": "Blister 12 cápsulas", "price": 12.45}, {"id": 102, "name": "Amoxicilina 500mg - Genérico", "description": "Antibiótico de amplio espectro", "category": "Antibióticos", "unit": "Blister 12 cápsulas", "price": 12.45}, {"id": 103, "name": "Amoxicilina 500mg - Premium", "description": "Antibiótico de amplio espectro", "category": "Antibióticos", "unit": "Blister 12 cápsulas", "price": 12.45}, {"id": 104, "name": "Amoxicilina 500mg - Extra Fuerte", "description": "Antibiótico de amplio espectro", "category": "Antibióticos", "unit": "Blister 12 cápsulas", "price": 12.45}, {"id": 105, "name": "Amoxicilina 500mg - Pack 2", "description": "Antibiótico de amplio espectro", "category": "Antibióticos", "unit": "Blister 12 cápsulas", "price": 12.45}, {"id": 106, "name": "Ciprofloxacina 500mg - Original", "description": "Fluoroquinolona de segunda generación", "category": "Antibióticos", "unit": "Blister 10 comprimidos", "price": 24.56}, {"id": 107, "name": "Ciprofloxacina 500mg - Genérico", "description": "Fluoroquinolona de segunda generación", "category": "Antibióticos", "unit": "Blister 10 comprimidos", "price": 24.56}, {"id": 108, "name": "Ciprofloxacina 500mg - Premium", "description": "Fluoroquinolona de segunda generación", "category": "Antibióticos", "unit": "Blister 10 comprimidos", "price": 24.56}, {"id": 109, "name": "Ciprofloxacina 500mg - Extra Fuerte", "description": "Fluoroquinolona de segunda generación", "category": "Antibióticos", "unit": "Blister 10 comprimidos", "price": 24.56}, {"id": 110, "name": "Ciprofloxacina 500mg - Pack 2", "description": "Fluoroquinolona de segunda generación", "category": "Antibióticos", "unit": "Blister 10 comprimidos", "price": 24.56}, {"id": 111, "name": "Azitromicina 500mg - Original", "description": "Macrólido de acción prolongada", "category": "Antibióticos", "unit": "Blister 6 comprimidos", "price": 18.67}, {"id": 112, "name": "Azitromicina 500mg - Genérico", "description": "Macrólido de acción prolongada", "category": "Antibióticos", "unit": "Blister 6 comprimidos", "price": 18.67}, {"id": 113, "name": "Azitromicina 500mg - Premium", "description": "Macrólido de acción prolongada", "category": "Antibióticos", "unit": "Blister 6 comprimidos", "price": 18.67}, {"id": 114, "name": "Azitromicina 500mg - Extra Fuerte", "description": "Macrólido de acción prolongada", "category": "Antibióticos", "unit": "Blister 6 comprimidos", "price": 18.67}, {"id": 115, "name": "Azitromicina 500mg - Pack 2", "description": "Macrólido de acción prolongada", "category": "Antibióticos", "unit": "Blister 6 comprimidos", "price": 18.67}, {"id": 116, "name": "Cefadroxilo 500mg - Original", "description": "Cefalosporina de primera generación", "category": "Antibióticos", "unit": "Blister 10 cápsulas", "price": 21.34}, {"id": 117, "name": "Cefadroxilo 500mg - Genérico", "description": "Cefalosporina de primera generación", "category": "Antibióticos", "unit": "Blister 10 cápsulas", "price": 21.34}, {"id": 118, "name": "Cefadroxilo 500mg - Premium", "description": "Cefalosporina de primera generación", "category": "Antibióticos", "unit": "Blister 10 cápsulas", "price": 21.34}, {"id": 119, "name": "Cefadroxilo 500mg - Extra Fuerte", "description": "Cefalosporina de primera generación", "category": "Antibióticos", "unit": "Blister 10 cápsulas", "price": 21.34}, {"id": 120, "name": "Cefadroxilo 500mg - Pack 2", "description": "Cefalosporina de primera generación", "category": "Antibióticos", "unit": "Blister 10 cápsulas", "price": 21.34}, {"id": 121, "name": "Penicilina Sódica IV - Original", "description": "Penicilina inyectable de alta potencia", "category": "Antibióticos", "unit": "Frasco 1.000.000 UI", "price": 115.01}, {"id": 122, "name": "Penicilina Sódica IV - Genérico", "description": "Penicilina inyectable de alta potencia", "category": "Antibióticos", "unit": "Frasco 1.000.000 UI", "price": 115.01}, {"id": 123, "name": "Penicilina Sódica IV - Premium", "description": "Penicilina inyectable de alta potencia", "category": "Antibióticos", "unit": "Frasco 1.000.000 UI", "price": 115.01}, {"id": 124, "name": "Penicilina Sódica IV - Extra Fuerte", "description": "Penicilina inyectable de alta potencia", "category": "Antibióticos", "unit": "Frasco 1.000.000 UI", "price": 115.01}, {"id": 125, "name": "Penicilina Sódica IV - Pack 2", "description": "Penicilina inyectable de alta potencia", "category": "Antibióticos", "unit": "Frasco 1.000.000 UI", "price": 115.01}, {"id": 126, "name": "Clindamicina 300mg - Original", "description": "Lincosamida para infecciones anaerobias", "category": "Antibióticos", "unit": "Blister 12 cápsulas", "price": 19.23}, {"id": 127, "name": "Clindamicina 300mg - Genérico", "description": "Lincosamida para infecciones anaerobias", "category": "Antibióticos", "unit": "Blister 12 cápsulas", "price": 19.23}, {"id": 128, "name": "Clindamicina 300mg - Premium", "description": "Lincosamida para infecciones anaerobias", "category": "Antibióticos", "unit": "Blister 12 cápsulas", "price": 19.23}, {"id": 129, "name": "Clindamicina 300mg - Extra Fuerte", "description": "Lincosamida para infecciones anaerobias", "category": "Antibióticos", "unit": "Blister 12 cápsulas", "price": 19.23}, {"id": 130, "name": "Clindamicina 300mg - Pack 2", "description": "Lincosamida para infecciones anaerobias", "category": "Antibióticos", "unit": "Blister 12 cápsulas", "price": 19.23}, {"id": 131, "name": "Doxiciclina 100mg - Original", "description": "Tetraciclina de amplio espectro", "category": "Antibióticos", "unit": "Blister 20 comprimidos", "price": 16.78}, {"id": 132, "name": "Doxiciclina 100mg - Genérico", "description": "Tetraciclina de amplio espectro", "category": "Antibióticos", "unit": "Blister 20 comprimidos", "price": 16.78}, {"id": 133, "name": "Doxiciclina 100mg - Premium", "description": "Tetraciclina de amplio espectro", "category": "Antibióticos", "unit": "Blister 20 comprimidos", "price": 16.78}, {"id": 134, "name": "Doxiciclina 100mg - Extra Fuerte", "description": "Tetraciclina de amplio espectro", "category": "Antibióticos", "unit": "Blister 20 comprimidos", "price": 16.78}, {"id": 135, "name": "Doxiciclina 100mg - Pack 2", "description": "Tetraciclina de amplio espectro", "category": "Antibióticos", "unit": "Blister 20 comprimidos", "price": 16.78}, {"id": 136, "name": "Cefixima 200mg - Original", "description": "Cefalosporina de tercera generación", "category": "Antibióticos", "unit": "Blister 10 comprimidos", "price": 29.45}, {"id": 137, "name": "Cefixima 200mg - Genérico", "description": "Cefalosporina de tercera generación", "category": "Antibióticos", "unit": "Blister 10 comprimidos", "price": 29.45}, {"id": 138, "name": "Cefixima 200mg - Premium", "description": "Cefalosporina de tercera generación", "category": "Antibióticos", "unit": "Blister 10 comprimidos", "price": 29.45}, {"id": 139, "name": "Cefixima 200mg - Extra Fuerte", "description": "Cefalosporina de tercera generación", "category": "Antibióticos", "unit": "Blister 10 comprimidos", "price": 29.45}, {"id": 140, "name": "Cefixima 200mg - Pack 2", "description": "Cefalosporina de tercera generación", "category": "Antibióticos", "unit": "Blister 10 comprimidos", "price": 29.45}, {"id": 141, "name": "Amoxicilina + Ácido Clavulánico - Original", "description": "Combinación betalactámico inhibidor", "category": "Antibióticos", "unit": "Blister 12 comprimidos", "price": 26.78}, {"id": 142, "name": "Amoxicilina + Ácido Clavulánico - Genérico", "description": "Combinación betalactámico inhibidor", "category": "Antibióticos", "unit": "Blister 12 comprimidos", "price": 26.78}, {"id": 143, "name": "Amoxicilina + Ácido Clavulánico - Premium", "description": "Combinación betalactámico inhibidor", "category": "Antibióticos", "unit": "Blister 12 comprimidos", "price": 26.78}, {"id": 144, "name": "Amoxicilina + Ácido Clavulánico - Extra Fuerte", "description": "Combinación betalactámico inhibidor", "category": "Antibióticos", "unit": "Blister 12 comprimidos", "price": 26.78}, {"id": 145, "name": "Amoxicilina + Ácido Clavulánico - Pack 2", "description": "Combinación betalactámico inhibidor", "category": "Antibióticos", "unit": "Blister 12 comprimidos", "price": 26.78}, {"id": 146, "name": "Metronidazol 500mg - Original", "description": "Antiinfeccioso para protozoos y anaerobios", "category": "Antibióticos", "unit": "Blister 20 comprimidos", "price": 14.32}, {"id": 147, "name": "Metronidazol 500mg - Genérico", "description": "Antiinfeccioso para protozoos y anaerobios", "category": "Antibióticos", "unit": "Blister 20 comprimidos", "price": 14.32}, {"id": 148, "name": "Metronidazol 500mg - Premium", "description": "Antiinfeccioso para protozoos y anaerobios", "category": "Antibióticos", "unit": "Blister 20 comprimidos", "price": 14.32}, {"id": 149, "name": "Metronidazol 500mg - Extra Fuerte", "description": "Antiinfeccioso para protozoos y anaerobios", "category": "Antibióticos", "unit": "Blister 20 comprimidos", "price": 14.32}, {"id": 150, "name": "Metronidazol 500mg - Pack 2", "description": "Antiinfeccioso para protozoos y anaerobios", "category": "Antibióticos", "unit": "Blister 20 comprimidos", "price": 14.32}, {"id": 151, "name": "Paracetamol + Seudoefedrina - Original", "description": "Antigripal para fiebre y congestión", "category": "Antigripales", "unit": "Blister 10 comprimidos", "price": 7.23}, {"id": 152, "name": "Paracetamol + Seudoefedrina - Genérico", "description": "Antigripal para fiebre y congestión", "category": "Antigripales", "unit": "Blister 10 comprimidos", "price": 7.23}, {"id": 153, "name": "Paracetamol + Seudoefedrina - Premium", "description": "Antigripal para fiebre y congestión", "category": "Antigripales", "unit": "Blister 10 comprimidos", "price": 7.23}, {"id": 154, "name": "Paracetamol + Seudoefedrina - Extra Fuerte", "description": "Antigripal para fiebre y congestión", "category": "Antigripales", "unit": "Blister 10 comprimidos", "price": 7.23}, {"id": 155, "name": "Paracetamol + Seudoefedrina - Pack 2", "description": "Antigripal para fiebre y congestión", "category": "Antigripales", "unit": "Blister 10 comprimidos", "price": 7.23}, {"id": 156, "name": "Ibuprofeno Antigripal - Original", "description": "Antigripal con acción antiinflamatoria", "category": "Antigripales", "unit": "Frasco 100 comprimidos", "price": 12.56}, {"id": 157, "name": "Ibuprofeno Antigripal - Genérico", "description": "Antigripal con acción antiinflamatoria", "category": "Antigripales", "unit": "Frasco 100 comprimidos", "price": 12.56}, {"id": 158, "name": "Ibuprofeno Antigripal - Premium", "description": "Antigripal con acción antiinflamatoria", "category": "Antigripales", "unit": "Frasco 100 comprimidos", "price": 12.56}, {"id": 159, "name": "Ibuprofeno Antigripal - Extra Fuerte", "description": "Antigripal con acción antiinflamatoria", "category": "Antigripales", "unit": "Frasco 100 comprimidos", "price": 12.56}, {"id": 160, "name": "Ibuprofeno Antigripal - Pack 2", "description": "Antigripal con acción antiinflamatoria", "category": "Antigripales", "unit": "Frasco 100 comprimidos", "price": 12.56}, {"id": 161, "name": "Ácido Acetilsalicílico Forte - Original", "description": "Antigripal tradicional de amplia trayectoria", "category": "Antigripales", "unit": "Blister 20 comprimidos", "price": 5.67}, {"id": 162, "name": "Ácido Acetilsalicílico Forte - Genérico", "description": "Antigripal tradicional de amplia trayectoria", "category": "Antigripales", "unit": "Blister 20 comprimidos", "price": 5.67}, {"id": 163, "name": "Ácido Acetilsalicílico Forte - Premium", "description": "Antigripal tradicional de amplia trayectoria", "category": "Antigripales", "unit": "Blister 20 comprimidos", "price": 5.67}, {"id": 164, "name": "Ácido Acetilsalicílico Forte - Extra Fuerte", "description": "Antigripal tradicional de amplia trayectoria", "category": "Antigripales", "unit": "Blister 20 comprimidos", "price": 5.67}, {"id": 165, "name": "Ácido Acetilsalicílico Forte - Pack 2", "description": "Antigripal tradicional de amplia trayectoria", "category": "Antigripales", "unit": "Blister 20 comprimidos", "price": 5.67}, {"id": 166, "name": "Loratadina + Seudoefedrina - Original", "description": "Antihistamínico antigripal combinado", "category": "Antigripales", "unit": "Blister 10 comprimidos", "price": 10.34}, {"id": 167, "name": "Loratadina + Seudoefedrina - Genérico", "description": "Antihistamínico antigripal combinado", "category": "Antigripales", "unit": "Blister 10 comprimidos", "price": 10.34}, {"id": 168, "name": "Loratadina + Seudoefedrina - Premium", "description": "Antihistamínico antigripal combinado", "category": "Antigripales", "unit": "Blister 10 comprimidos", "price": 10.34}, {"id": 169, "name": "Loratadina + Seudoefedrina - Extra Fuerte", "description": "Antihistamínico antigripal combinado", "category": "Antigripales", "unit": "Blister 10 comprimidos", "price": 10.34}, {"id": 170, "name": "Loratadina + Seudoefedrina - Pack 2", "description": "Antihistamínico antigripal combinado", "category": "Antigripales", "unit": "Blister 10 comprimidos", "price": 10.34}, {"id": 171, "name": "Jarabe para la Tos - Original", "description": "Jarabe antigripal para tos seca", "category": "Antigripales", "unit": "Frasco 150 ml", "price": 8.45}, {"id": 172, "name": "Jarabe para la Tos - Genérico", "description": "Jarabe antigripal para tos seca", "category": "Antigripales", "unit": "Frasco 150 ml", "price": 8.45}, {"id": 173, "name": "Jarabe para la Tos - Premium", "description": "Jarabe antigripal para tos seca", "category": "Antigripales", "unit": "Frasco 150 ml", "price": 8.45}, {"id": 174, "name": "Jarabe para la Tos - Extra Fuerte", "description": "Jarabe antigripal para tos seca", "category": "Antigripales", "unit": "Frasco 150 ml", "price": 8.45}, {"id": 175, "name": "Jarabe para la Tos - Pack 2", "description": "Jarabe antigripal para tos seca", "category": "Antigripales", "unit": "Frasco 150 ml", "price": 8.45}, {"id": 176, "name": "Codeína + Paracetamol - Original", "description": "Antigripal con efecto antitusivo", "category": "Antigripales", "unit": "Blister 12 comprimidos", "price": 13.78}, {"id": 177, "name": "Codeína + Paracetamol - Genérico", "description": "Antigripal con efecto antitusivo", "category": "Antigripales", "unit": "Blister 12 comprimidos", "price": 13.78}, {"id": 178, "name": "Codeína + Paracetamol - Premium", "description": "Antigripal con efecto antitusivo", "category": "Antigripales", "unit": "Blister 12 comprimidos", "price": 13.78}, {"id": 179, "name": "Codeína + Paracetamol - Extra Fuerte", "description": "Antigripal con efecto antitusivo", "category": "Antigripales", "unit": "Blister 12 comprimidos", "price": 13.78}, {"id": 180, "name": "Codeína + Paracetamol - Pack 2", "description": "Antigripal con efecto antitusivo", "category": "Antigripales", "unit": "Blister 12 comprimidos", "price": 13.78}, {"id": 181, "name": "Guaifenesina 100mg - Original", "description": "Expectorante para flemas", "category": "Antigripales", "unit": "Frasco 120 ml", "price": 6.89}, {"id": 182, "name": "Guaifenesina 100mg - Genérico", "description": "Expectorante para flemas", "category": "Antigripales", "unit": "Frasco 120 ml", "price": 6.89}, {"id": 183, "name": "Guaifenesina 100mg - Premium", "description": "Expectorante para flemas", "category": "Antigripales", "unit": "Frasco 120 ml", "price": 6.89}, {"id": 184, "name": "Guaifenesina 100mg - Extra Fuerte", "description": "Expectorante para flemas", "category": "Antigripales", "unit": "Frasco 120 ml", "price": 6.89}, {"id": 185, "name": "Guaifenesina 100mg - Pack 2", "description": "Expectorante para flemas", "category": "Antigripales", "unit": "Frasco 120 ml", "price": 6.89}, {"id": 186, "name": "Fenilefrina Gotas Nasales - Original", "description": "Descongestivo nasal tópico", "category": "Antigripales", "unit": "Frasco 15 ml", "price": 4.56}, {"id": 187, "name": "Fenilefrina Gotas Nasales - Genérico", "description": "Descongestivo nasal tópico", "category": "Antigripales", "unit": "Frasco 15 ml", "price": 4.56}, {"id": 188, "name": "Fenilefrina Gotas Nasales - Premium", "description": "Descongestivo nasal tópico", "category": "Antigripales", "unit": "Frasco 15 ml", "price": 4.56}, {"id": 189, "name": "Fenilefrina Gotas Nasales - Extra Fuerte", "description": "Descongestivo nasal tópico", "category": "Antigripales", "unit": "Frasco 15 ml", "price": 4.56}, {"id": 190, "name": "Fenilefrina Gotas Nasales - Pack 2", "description": "Descongestivo nasal tópico", "category": "Antigripales", "unit": "Frasco 15 ml", "price": 4.56}, {"id": 191, "name": "Ibuprofeno 600mg Antigripal - Original", "description": "Antigripal de acción reforzada", "category": "Antigripales", "unit": "Blister 20 comprimidos", "price": 11.23}, {"id": 192, "name": "Ibuprofeno 600mg Antigripal - Genérico", "description": "Antigripal de acción reforzada", "category": "Antigripales", "unit": "Blister 20 comprimidos", "price": 11.23}, {"id": 193, "name": "Ibuprofeno 600mg Antigripal - Premium", "description": "Antigripal de acción reforzada", "category": "Antigripales", "unit": "Blister 20 comprimidos", "price": 11.23}, {"id": 194, "name": "Ibuprofeno 600mg Antigripal - Extra Fuerte", "description": "Antigripal de acción reforzada", "category": "Antigripales", "unit": "Blister 20 comprimidos", "price": 11.23}, {"id": 195, "name": "Ibuprofeno 600mg Antigripal - Pack 2", "description": "Antigripal de acción reforzada", "category": "Antigripales", "unit": "Blister 20 comprimidos", "price": 11.23}, {"id": 196, "name": "Vitamina C + Paracetamol - Original", "description": "Antigripal con refuerzo inmunológico", "category": "Antigripales", "unit": "Blister 10 comprimidos", "price": 9.12}, {"id": 197, "name": "Vitamina C + Paracetamol - Genérico", "description": "Antigripal con refuerzo inmunológico", "category": "Antigripales", "unit": "Blister 10 comprimidos", "price": 9.12}, {"id": 198, "name": "Vitamina C + Paracetamol - Premium", "description": "Antigripal con refuerzo inmunológico", "category": "Antigripales", "unit": "Blister 10 comprimidos", "price": 9.12}, {"id": 199, "name": "Vitamina C + Paracetamol - Extra Fuerte", "description": "Antigripal con refuerzo inmunológico", "category": "Antigripales", "unit": "Blister 10 comprimidos", "price": 9.12}, {"id": 200, "name": "Vitamina C + Paracetamol - Pack 2", "description": "Antigripal con refuerzo inmunológico", "category": "Antigripales", "unit": "Blister 10 comprimidos", "price": 9.12}, {"id": 201, "name": "Cetirizina 10mg - Original", "description": "Antihistamínico no sedante", "category": "Antihistamínicos", "unit": "Blister 10 comprimidos", "price": 6.78}, {"id": 202, "name": "Cetirizina 10mg - Genérico", "description": "Antihistamínico no sedante", "category": "Antihistamínicos", "unit": "Blister 10 comprimidos", "price": 6.78}, {"id": 203, "name": "Cetirizina 10mg - Premium", "description": "Antihistamínico no sedante", "category": "Antihistamínicos", "unit": "Blister 10 comprimidos", "price": 6.78}, {"id": 204, "name": "Cetirizina 10mg - Extra Fuerte", "description": "Antihistamínico no sedante", "category": "Antihistamínicos", "unit": "Blister 10 comprimidos", "price": 6.78}, {"id": 205, "name": "Cetirizina 10mg - Pack 2", "description": "Antihistamínico no sedante", "category": "Antihistamínicos", "unit": "Blister 10 comprimidos", "price": 6.78}, {"id": 206, "name": "Loratadina 10mg - Original", "description": "Antihistamínico de larga duración", "category": "Antihistamínicos", "unit": "Blister 10 comprimidos", "price": 7.45}, {"id": 207, "name": "Loratadina 10mg - Genérico", "description": "Antihistamínico de larga duración", "category": "Antihistamínicos", "unit": "Blister 10 comprimidos", "price": 7.45}, {"id": 208, "name": "Loratadina 10mg - Premium", "description": "Antihistamínico de larga duración", "category": "Antihistamínicos", "unit": "Blister 10 comprimidos", "price": 7.45}, {"id": 209, "name": "Loratadina 10mg - Extra Fuerte", "description": "Antihistamínico de larga duración", "category": "Antihistamínicos", "unit": "Blister 10 comprimidos", "price": 7.45}, {"id": 210, "name": "Loratadina 10mg - Pack 2", "description": "Antihistamínico de larga duración", "category": "Antihistamínicos", "unit": "Blister 10 comprimidos", "price": 7.45}, {"id": 211, "name": "Hidroxizina 25mg - Original", "description": "Antihistamínico con efecto sedante", "category": "Antihistamínicos", "unit": "Blister 20 comprimidos", "price": 12.34}, {"id": 212, "name": "Hidroxizina 25mg - Genérico", "description": "Antihistamínico con efecto sedante", "category": "Antihistamínicos", "unit": "Blister 20 comprimidos", "price": 12.34}, {"id": 213, "name": "Hidroxizina 25mg - Premium", "description": "Antihistamínico con efecto sedante", "category": "Antihistamínicos", "unit": "Blister 20 comprimidos", "price": 12.34}, {"id": 214, "name": "Hidroxizina 25mg - Extra Fuerte", "description": "Antihistamínico con efecto sedante", "category": "Antihistamínicos", "unit": "Blister 20 comprimidos", "price": 12.34}, {"id": 215, "name": "Hidroxizina 25mg - Pack 2", "description": "Antihistamínico con efecto sedante", "category": "Antihistamínicos", "unit": "Blister 20 comprimidos", "price": 12.34}, {"id": 216, "name": "Fexofenadina 180mg - Original", "description": "Antihistamínico moderno sin sedación", "category": "Antihistamínicos", "unit": "Blister 30 comprimidos", "price": 18.56}, {"id": 217, "name": "Fexofenadina 180mg - Genérico", "description": "Antihistamínico moderno sin sedación", "category": "Antihistamínicos", "unit": "Blister 30 comprimidos", "price": 18.56}, {"id": 218, "name": "Fexofenadina 180mg - Premium", "description": "Antihistamínico moderno sin sedación", "category": "Antihistamínicos", "unit": "Blister 30 comprimidos", "price": 18.56}, {"id": 219, "name": "Fexofenadina 180mg - Extra Fuerte", "description": "Antihistamínico moderno sin sedación", "category": "Antihistamínicos", "unit": "Blister 30 comprimidos", "price": 18.56}, {"id": 220, "name": "Fexofenadina 180mg - Pack 2", "description": "Antihistamínico moderno sin sedación", "category": "Antihistamínicos", "unit": "Blister 30 comprimidos", "price": 18.56}, {"id": 221, "name": "Prometazina 25mg - Original", "description": "Antihistamínico clásico de amplio uso", "category": "Antihistamínicos", "unit": "Blister 20 comprimidos", "price": 11.67}, {"id": 222, "name": "Prometazina 25mg - Genérico", "description": "Antihistamínico clásico de amplio uso", "category": "Antihistamínicos", "unit": "Blister 20 comprimidos", "price": 11.67}, {"id": 223, "name": "Prometazina 25mg - Premium", "description": "Antihistamínico clásico de amplio uso", "category": "Antihistamínicos", "unit": "Blister 20 comprimidos", "price": 11.67}, {"id": 224, "name": "Prometazina 25mg - Extra Fuerte", "description": "Antihistamínico clásico de amplio uso", "category": "Antihistamínicos", "unit": "Blister 20 comprimidos", "price": 11.67}, {"id": 225, "name": "Prometazina 25mg - Pack 2", "description": "Antihistamínico clásico de amplio uso", "category": "Antihistamínicos", "unit": "Blister 20 comprimidos", "price": 11.67}, {"id": 226, "name": "Desloratadina 5mg - Original", "description": "Metabolito activo de loratadina", "category": "Antihistamínicos", "unit": "Blister 10 comprimidos", "price": 13.45}, {"id": 227, "name": "Desloratadina 5mg - Genérico", "description": "Metabolito activo de loratadina", "category": "Antihistamínicos", "unit": "Blister 10 comprimidos", "price": 13.45}, {"id": 228, "name": "Desloratadina 5mg - Premium", "description": "Metabolito activo de loratadina", "category": "Antihistamínicos", "unit": "Blister 10 comprimidos", "price": 13.45}, {"id": 229, "name": "Desloratadina 5mg - Extra Fuerte", "description": "Metabolito activo de loratadina", "category": "Antihistamínicos", "unit": "Blister 10 comprimidos", "price": 13.45}, {"id": 230, "name": "Desloratadina 5mg - Pack 2", "description": "Metabolito activo de loratadina", "category": "Antihistamínicos", "unit": "Blister 10 comprimidos", "price": 13.45}, {"id": 231, "name": "Ketotifeno 1mg - Original", "description": "Estabilizador de mastocitos", "category": "Antihistamínicos", "unit": "Frasco 60 comprimidos", "price": 23.45}, {"id": 232, "name": "Ketotifeno 1mg - Genérico", "description": "Estabilizador de mastocitos", "category": "Antihistamínicos", "unit": "Frasco 60 comprimidos", "price": 23.45}, {"id": 233, "name": "Ketotifeno 1mg - Premium", "description": "Estabilizador de mastocitos", "category": "Antihistamínicos", "unit": "Frasco 60 comprimidos", "price": 23.45}, {"id": 234, "name": "Ketotifeno 1mg - Extra Fuerte", "description": "Estabilizador de mastocitos", "category": "Antihistamínicos", "unit": "Frasco 60 comprimidos", "price": 23.45}, {"id": 235, "name": "Ketotifeno 1mg - Pack 2", "description": "Estabilizador de mastocitos", "category": "Antihistamínicos", "unit": "Frasco 60 comprimidos", "price": 23.45}, {"id": 236, "name": "Azelastina Spray Nasal - Original", "description": "Antihistamínico tópico nasal", "category": "Antihistamínicos", "unit": "Frasco 18 ml", "price": 19.78}, {"id": 237, "name": "Azelastina Spray Nasal - Genérico", "description": "Antihistamínico tópico nasal", "category": "Antihistamínicos", "unit": "Frasco 18 ml", "price": 19.78}, {"id": 238, "name": "Azelastina Spray Nasal - Premium", "description": "Antihistamínico tópico nasal", "category": "Antihistamínicos", "unit": "Frasco 18 ml", "price": 19.78}, {"id": 239, "name": "Azelastina Spray Nasal - Extra Fuerte", "description": "Antihistamínico tópico nasal", "category": "Antihistamínicos", "unit": "Frasco 18 ml", "price": 19.78}, {"id": 240, "name": "Azelastina Spray Nasal - Pack 2", "description": "Antihistamínico tópico nasal", "category": "Antihistamínicos", "unit": "Frasco 18 ml", "price": 19.78}, {"id": 241, "name": "Meclizina 25mg - Original", "description": "Antihistamínico antimareo", "category": "Antihistamínicos", "unit": "Blister 12 comprimidos", "price": 14.23}, {"id": 242, "name": "Meclizina 25mg - Genérico", "description": "Antihistamínico antimareo", "category": "Antihistamínicos", "unit": "Blister 12 comprimidos", "price": 14.23}, {"id": 243, "name": "Meclizina 25mg - Premium", "description": "Antihistamínico antimareo", "category": "Antihistamínicos", "unit": "Blister 12 comprimidos", "price": 14.23}, {"id": 244, "name": "Meclizina 25mg - Extra Fuerte", "description": "Antihistamínico antimareo", "category": "Antihistamínicos", "unit": "Blister 12 comprimidos", "price": 14.23}, {"id": 245, "name": "Meclizina 25mg - Pack 2", "description": "Antihistamínico antimareo", "category": "Antihistamínicos", "unit": "Blister 12 comprimidos", "price": 14.23}, {"id": 246, "name": "Difenhidramina 25mg - Original", "description": "Antihistamínico de primera generación", "category": "Antihistamínicos", "unit": "Blister 20 comprimidos", "price": 10.56}, {"id": 247, "name": "Difenhidramina 25mg - Genérico", "description": "Antihistamínico de primera generación", "category": "Antihistamínicos", "unit": "Blister 20 comprimidos", "price": 10.56}, {"id": 248, "name": "Difenhidramina 25mg - Premium", "description": "Antihistamínico de primera generación", "category": "Antihistamínicos", "unit": "Blister 20 comprimidos", "price": 10.56}, {"id": 249, "name": "Difenhidramina 25mg - Extra Fuerte", "description": "Antihistamínico de primera generación", "category": "Antihistamínicos", "unit": "Blister 20 comprimidos", "price": 10.56}, {"id": 250, "name": "Difenhidramina 25mg - Pack 2", "description": "Antihistamínico de primera generación", "category": "Antihistamínicos", "unit": "Blister 20 comprimidos", "price": 10.56}, {"id": 251, "name": "Ibuprofeno 400mg - Original", "description": "Analgésico antiinflamatorio", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 4.23}, {"id": 252, "name": "Ibuprofeno 400mg - Genérico", "description": "Analgésico antiinflamatorio", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 4.23}, {"id": 253, "name": "Ibuprofeno 400mg - Premium", "description": "Analgésico antiinflamatorio", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 4.23}, {"id": 254, "name": "Ibuprofeno 400mg - Extra Fuerte", "description": "Analgésico antiinflamatorio", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 4.23}, {"id": 255, "name": "Ibuprofeno 400mg - Pack 2", "description": "Analgésico antiinflamatorio", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 4.23}, {"id": 256, "name": "Paracetamol 500mg - Original", "description": "Analgésico y antipirético suave", "category": "Analgésicos", "unit": "Frasco 100 comprimidos", "price": 5.56}, {"id": 257, "name": "Paracetamol 500mg - Genérico", "description": "Analgésico y antipirético suave", "category": "Analgésicos", "unit": "Frasco 100 comprimidos", "price": 5.56}, {"id": 258, "name": "Paracetamol 500mg - Premium", "description": "Analgésico y antipirético suave", "category": "Analgésicos", "unit": "Frasco 100 comprimidos", "price": 5.56}, {"id": 259, "name": "Paracetamol 500mg - Extra Fuerte", "description": "Analgésico y antipirético suave", "category": "Analgésicos", "unit": "Frasco 100 comprimidos", "price": 5.56}, {"id": 260, "name": "Paracetamol 500mg - Pack 2", "description": "Analgésico y antipirético suave", "category": "Analgésicos", "unit": "Frasco 100 comprimidos", "price": 5.56}, {"id": 261, "name": "Naproxeno Sódico 550mg - Original", "description": "Analgésico de acción prolongada", "category": "Analgésicos", "unit": "Blister 20 comprimidos", "price": 8.78}, {"id": 262, "name": "Naproxeno Sódico 550mg - Genérico", "description": "Analgésico de acción prolongada", "category": "Analgésicos", "unit": "Blister 20 comprimidos", "price": 8.78}, {"id": 263, "name": "Naproxeno Sódico 550mg - Premium", "description": "Analgésico de acción prolongada", "category": "Analgésicos", "unit": "Blister 20 comprimidos", "price": 8.78}, {"id": 264, "name": "Naproxeno Sódico 550mg - Extra Fuerte", "description": "Analgésico de acción prolongada", "category": "Analgésicos", "unit": "Blister 20 comprimidos", "price": 8.78}, {"id": 265, "name": "Naproxeno Sódico 550mg - Pack 2", "description": "Analgésico de acción prolongada", "category": "Analgésicos", "unit": "Blister 20 comprimidos", "price": 8.78}, {"id": 266, "name": "Diclofenaco Potásico 50mg - Original", "description": "Analgésico antiinflamatorio potente", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 7.34}, {"id": 267, "name": "Diclofenaco Potásico 50mg - Genérico", "description": "Analgésico antiinflamatorio potente", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 7.34}, {"id": 268, "name": "Diclofenaco Potásico 50mg - Premium", "description": "Analgésico antiinflamatorio potente", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 7.34}, {"id": 269, "name": "Diclofenaco Potásico 50mg - Extra Fuerte", "description": "Analgésico antiinflamatorio potente", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 7.34}, {"id": 270, "name": "Diclofenaco Potásico 50mg - Pack 2", "description": "Analgésico antiinflamatorio potente", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 7.34}, {"id": 271, "name": "Metamizol 500mg - Original", "description": "Analgésico de uso común", "category": "Analgésicos", "unit": "Frasco 50 comprimidos", "price": 6.12}, {"id": 272, "name": "Metamizol 500mg - Genérico", "description": "Analgésico de uso común", "category": "Analgésicos", "unit": "Frasco 50 comprimidos", "price": 6.12}, {"id": 273, "name": "Metamizol 500mg - Premium", "description": "Analgésico de uso común", "category": "Analgésicos", "unit": "Frasco 50 comprimidos", "price": 6.12}, {"id": 274, "name": "Metamizol 500mg - Extra Fuerte", "description": "Analgésico de uso común", "category": "Analgésicos", "unit": "Frasco 50 comprimidos", "price": 6.12}, {"id": 275, "name": "Metamizol 500mg - Pack 2", "description": "Analgésico de uso común", "category": "Analgésicos", "unit": "Frasco 50 comprimidos", "price": 6.12}, {"id": 276, "name": "Ketorolaco 10mg - Original", "description": "Analgésico AINE de acción rápida", "category": "Analgésicos", "unit": "Blister 6 comprimidos", "price": 9.45}, {"id": 277, "name": "Ketorolaco 10mg - Genérico", "description": "Analgésico AINE de acción rápida", "category": "Analgésicos", "unit": "Blister 6 comprimidos", "price": 9.45}, {"id": 278, "name": "Ketorolaco 10mg - Premium", "description": "Analgésico AINE de acción rápida", "category": "Analgésicos", "unit": "Blister 6 comprimidos", "price": 9.45}, {"id": 279, "name": "Ketorolaco 10mg - Extra Fuerte", "description": "Analgésico AINE de acción rápida", "category": "Analgésicos", "unit": "Blister 6 comprimidos", "price": 9.45}, {"id": 280, "name": "Ketorolaco 10mg - Pack 2", "description": "Analgésico AINE de acción rápida", "category": "Analgésicos", "unit": "Blister 6 comprimidos", "price": 9.45}, {"id": 281, "name": "Acetaminofén 750mg - Original", "description": "Analgésico reforzado", "category": "Analgésicos", "unit": "Blister 20 comprimidos", "price": 11.67}, {"id": 282, "name": "Acetaminofén 750mg - Genérico", "description": "Analgésico reforzado", "category": "Analgésicos", "unit": "Blister 20 comprimidos", "price": 11.67}, {"id": 283, "name": "Acetaminofén 750mg - Premium", "description": "Analgésico reforzado", "category": "Analgésicos", "unit": "Blister 20 comprimidos", "price": 11.67}, {"id": 284, "name": "Acetaminofén 750mg - Extra Fuerte", "description": "Analgésico reforzado", "category": "Analgésicos", "unit": "Blister 20 comprimidos", "price": 11.67}, {"id": 285, "name": "Acetaminofén 750mg - Pack 2", "description": "Analgésico reforzado", "category": "Analgésicos", "unit": "Blister 20 comprimidos", "price": 11.67}, {"id": 286, "name": "Tramadol 50mg - Original", "description": "Analgésico opiáceo débil", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 14.56}, {"id": 287, "name": "Tramadol 50mg - Genérico", "description": "Analgésico opiáceo débil", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 14.56}, {"id": 288, "name": "Tramadol 50mg - Premium", "description": "Analgésico opiáceo débil", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 14.56}, {"id": 289, "name": "Tramadol 50mg - Extra Fuerte", "description": "Analgésico opiáceo débil", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 14.56}, {"id": 290, "name": "Tramadol 50mg - Pack 2", "description": "Analgésico opiáceo débil", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 14.56}, {"id": 291, "name": "Piroxicam 20mg - Original", "description": "AINE para dolores musculares", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 12.34}, {"id": 292, "name": "Piroxicam 20mg - Genérico", "description": "AINE para dolores musculares", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 12.34}, {"id": 293, "name": "Piroxicam 20mg - Premium", "description": "AINE para dolores musculares", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 12.34}, {"id": 294, "name": "Piroxicam 20mg - Extra Fuerte", "description": "AINE para dolores musculares", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 12.34}, {"id": 295, "name": "Piroxicam 20mg - Pack 2", "description": "AINE para dolores musculares", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 12.34}, {"id": 296, "name": "Meloxicam 15mg - Original", "description": "AINE selectivo de COX-2", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 13.89}, {"id": 297, "name": "Meloxicam 15mg - Genérico", "description": "AINE selectivo de COX-2", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 13.89}, {"id": 298, "name": "Meloxicam 15mg - Premium", "description": "AINE selectivo de COX-2", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 13.89}, {"id": 299, "name": "Meloxicam 15mg - Extra Fuerte", "description": "AINE selectivo de COX-2", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 13.89}, {"id": 300, "name": "Meloxicam 15mg - Pack 2", "description": "AINE selectivo de COX-2", "category": "Analgésicos", "unit": "Blister 10 comprimidos", "price": 13.89}, {"id": 301, "name": "Omeprazol 20mg - Original", "description": "Inhibidor de bomba de protones", "category": "Salud Digestiva", "unit": "Blister 14 cápsulas", "price": 18.45}, {"id": 302, "name": "Omeprazol 20mg - Genérico", "description": "Inhibidor de bomba de protones", "category": "Salud Digestiva", "unit": "Blister 14 cápsulas", "price": 18.45}, {"id": 303, "name": "Omeprazol 20mg - Premium", "description": "Inhibidor de bomba de protones", "category": "Salud Digestiva", "unit": "Blister 14 cápsulas", "price": 18.45}, {"id": 304, "name": "Omeprazol 20mg - Extra Fuerte", "description": "Inhibidor de bomba de protones", "category": "Salud Digestiva", "unit": "Blister 14 cápsulas", "price": 18.45}, {"id": 305, "name": "Omeprazol 20mg - Pack 2", "description": "Inhibidor de bomba de protones", "category": "Salud Digestiva", "unit": "Blister 14 cápsulas", "price": 18.45}, {"id": 306, "name": "Ranitidina 150mg - Original", "description": "Antacido reductor de ácido", "category": "Salud Digestiva", "unit": "Blister 10 comprimidos", "price": 12.67}, {"id": 307, "name": "Ranitidina 150mg - Genérico", "description": "Antacido reductor de ácido", "category": "Salud Digestiva", "unit": "Blister 10 comprimidos", "price": 12.67}, {"id": 308, "name": "Ranitidina 150mg - Premium", "description": "Antacido reductor de ácido", "category": "Salud Digestiva", "unit": "Blister 10 comprimidos", "price": 12.67}, {"id": 309, "name": "Ranitidina 150mg - Extra Fuerte", "description": "Antacido reductor de ácido", "category": "Salud Digestiva", "unit": "Blister 10 comprimidos", "price": 12.67}, {"id": 310, "name": "Ranitidina 150mg - Pack 2", "description": "Antacido reductor de ácido", "category": "Salud Digestiva", "unit": "Blister 10 comprimidos", "price": 12.67}, {"id": 311, "name": "Metoclopramida 10mg - Original", "description": "Procinético para digestión", "category": "Salud Digestiva", "unit": "Blister 20 comprimidos", "price": 8.34}, {"id": 312, "name": "Metoclopramida 10mg - Genérico", "description": "Procinético para digestión", "category": "Salud Digestiva", "unit": "Blister 20 comprimidos", "price": 8.34}, {"id": 313, "name": "Metoclopramida 10mg - Premium", "description": "Procinético para digestión", "category": "Salud Digestiva", "unit": "Blister 20 comprimidos", "price": 8.34}, {"id": 314, "name": "Metoclopramida 10mg - Extra Fuerte", "description": "Procinético para digestión", "category": "Salud Digestiva", "unit": "Blister 20 comprimidos", "price": 8.34}, {"id": 315, "name": "Metoclopramida 10mg - Pack 2", "description": "Procinético para digestión", "category": "Salud Digestiva", "unit": "Blister 20 comprimidos", "price": 8.34}, {"id": 316, "name": "Simeticona 80mg - Original", "description": "Antiflatulento", "category": "Salud Digestiva", "unit": "Frasco 100 cápsulas", "price": 9.23}, {"id": 317, "name": "Simeticona 80mg - Genérico", "description": "Antiflatulento", "category": "Salud Digestiva", "unit": "Frasco 100 cápsulas", "price": 9.23}, {"id": 318, "name": "Simeticona 80mg - Premium", "description": "Antiflatulento", "category": "Salud Digestiva", "unit": "Frasco 100 cápsulas", "price": 9.23}, {"id": 319, "name": "Simeticona 80mg - Extra Fuerte", "description": "Antiflatulento", "category": "Salud Digestiva", "unit": "Frasco 100 cápsulas", "price": 9.23}, {"id": 320, "name": "Simeticona 80mg - Pack 2", "description": "Antiflatulento", "category": "Salud Digestiva", "unit": "Frasco 100 cápsulas", "price": 9.23}, {"id": 321, "name": "Probióticos Mix - Original", "description": "Flora intestinal probiótica", "category": "Salud Digestiva", "unit": "Frasco 30 cápsulas", "price": 24.56}, {"id": 322, "name": "Probióticos Mix - Genérico", "description": "Flora intestinal probiótica", "category": "Salud Digestiva", "unit": "Frasco 30 cápsulas", "price": 24.56}, {"id": 323, "name": "Probióticos Mix - Premium", "description": "Flora intestinal probiótica", "category": "Salud Digestiva", "unit": "Frasco 30 cápsulas", "price": 24.56}, {"id": 324, "name": "Probióticos Mix - Extra Fuerte", "description": "Flora intestinal probiótica", "category": "Salud Digestiva", "unit": "Frasco 30 cápsulas", "price": 24.56}, {"id": 325, "name": "Probióticos Mix - Pack 2", "description": "Flora intestinal probiótica", "category": "Salud Digestiva", "unit": "Frasco 30 cápsulas", "price": 24.56}, {"id": 326, "name": "Lactasa Enzimática - Original", "description": "Enzima para intolerancia a la lactosa", "category": "Salud Digestiva", "unit": "Frasco 60 cápsulas", "price": 16.78}, {"id": 327, "name": "Lactasa Enzimática - Genérico", "description": "Enzima para intolerancia a la lactosa", "category": "Salud Digestiva", "unit": "Frasco 60 cápsulas", "price": 16.78}, {"id": 328, "name": "Lactasa Enzimática - Premium", "description": "Enzima para intolerancia a la lactosa", "category": "Salud Digestiva", "unit": "Frasco 60 cápsulas", "price": 16.78}, {"id": 329, "name": "Lactasa Enzimática - Extra Fuerte", "description": "Enzima para intolerancia a la lactosa", "category": "Salud Digestiva", "unit": "Frasco 60 cápsulas", "price": 16.78}, {"id": 330, "name": "Lactasa Enzimática - Pack 2", "description": "Enzima para intolerancia a la lactosa", "category": "Salud Digestiva", "unit": "Frasco 60 cápsulas", "price": 16.78}, {"id": 331, "name": "Pancreatina 500mg - Original", "description": "Enzimas pancreáticas digestivas", "category": "Salud Digestiva", "unit": "Blister 20 comprimidos", "price": 21.45}, {"id": 332, "name": "Pancreatina 500mg - Genérico", "description": "Enzimas pancreáticas digestivas", "category": "Salud Digestiva", "unit": "Blister 20 comprimidos", "price": 21.45}, {"id": 333, "name": "Pancreatina 500mg - Premium", "description": "Enzimas pancreáticas digestivas", "category": "Salud Digestiva", "unit": "Blister 20 comprimidos", "price": 21.45}, {"id": 334, "name": "Pancreatina 500mg - Extra Fuerte", "description": "Enzimas pancreáticas digestivas", "category": "Salud Digestiva", "unit": "Blister 20 comprimidos", "price": 21.45}, {"id": 335, "name": "Pancreatina 500mg - Pack 2", "description": "Enzimas pancreáticas digestivas", "category": "Salud Digestiva", "unit": "Blister 20 comprimidos", "price": 21.45}, {"id": 336, "name": "Loperamida 2mg - Original", "description": "Antidiarreico", "category": "Salud Digestiva", "unit": "Blister 10 comprimidos", "price": 10.12}, {"id": 337, "name": "Loperamida 2mg - Genérico", "description": "Antidiarreico", "category": "Salud Digestiva", "unit": "Blister 10 comprimidos", "price": 10.12}, {"id": 338, "name": "Loperamida 2mg - Premium", "description": "Antidiarreico", "category": "Salud Digestiva", "unit": "Blister 10 comprimidos", "price": 10.12}, {"id": 339, "name": "Loperamida 2mg - Extra Fuerte", "description": "Antidiarreico", "category": "Salud Digestiva", "unit": "Blister 10 comprimidos", "price": 10.12}, {"id": 340, "name": "Loperamida 2mg - Pack 2", "description": "Antidiarreico", "category": "Salud Digestiva", "unit": "Blister 10 comprimidos", "price": 10.12}, {"id": 341, "name": "Bismuto Subsalicilato - Original", "description": "Protector de mucosa gástrica", "category": "Salud Digestiva", "unit": "Frasco 120 ml", "price": 14.89}, {"id": 342, "name": "Bismuto Subsalicilato - Genérico", "description": "Protector de mucosa gástrica", "category": "Salud Digestiva", "unit": "Frasco 120 ml", "price": 14.89}, {"id": 343, "name": "Bismuto Subsalicilato - Premium", "description": "Protector de mucosa gástrica", "category": "Salud Digestiva", "unit": "Frasco 120 ml", "price": 14.89}, {"id": 344, "name": "Bismuto Subsalicilato - Extra Fuerte", "description": "Protector de mucosa gástrica", "category": "Salud Digestiva", "unit": "Frasco 120 ml", "price": 14.89}, {"id": 345, "name": "Bismuto Subsalicilato - Pack 2", "description": "Protector de mucosa gástrica", "category": "Salud Digestiva", "unit": "Frasco 120 ml", "price": 14.89}, {"id": 346, "name": "Espasmolítico Butilescopolamina - Original", "description": "Antiespasmódico para cólicos", "category": "Salud Digestiva", "unit": "Blister 10 comprimidos", "price": 11.34}, {"id": 347, "name": "Espasmolítico Butilescopolamina - Genérico", "description": "Antiespasmódico para cólicos", "category": "Salud Digestiva", "unit": "Blister 10 comprimidos", "price": 11.34}, {"id": 348, "name": "Espasmolítico Butilescopolamina - Premium", "description": "Antiespasmódico para cólicos", "category": "Salud Digestiva", "unit": "Blister 10 comprimidos", "price": 11.34}, {"id": 349, "name": "Espasmolítico Butilescopolamina - Extra Fuerte", "description": "Antiespasmódico para cólicos", "category": "Salud Digestiva", "unit": "Blister 10 comprimidos", "price": 11.34}, {"id": 350, "name": "Espasmolítico Butilescopolamina - Pack 2", "description": "Antiespasmódico para cólicos", "category": "Salud Digestiva", "unit": "Blister 10 comprimidos", "price": 11.34}];
+
+        let products = [...allProducts];
+        let currentSort = 'relevancia';
+
+        // Generar filtros de categorías
+        function initializeCategoryFilters() {
+            const categories = [...new Set(allProducts.map(p => p.category))].sort();
+            const filterDiv = document.getElementById('categoriesFilter');
+            // Limpiar filtros previos para evitar duplicados
+            filterDiv.innerHTML = '';
+            categories.forEach(cat => {
+                const label = document.createElement('label');
+                label.innerHTML = `<input type="checkbox" value="${cat}" onchange="filterProducts()"> ${cat}`;
+                filterDiv.appendChild(label);
+            });
+        }
+
+        function getProductImage(unit) {
+            const blisterCapsulas = ['Blister 30 cápsulas', 'Blister 12 cápsulas', 'Blister 10 cápsulas', 'Blister 14 cápsulas'];
+            const blisterComprimidos = ['Blister 30 comprimidos', 'Blister 20 comprimidos', 'Blister 10 comprimidos', 'Blister 6 comprimidos', 'Blister 12 comprimidos'];
+            const frascoVidrio = ['Frasco 1.000.000 UI', 'Frasco 150 ml', 'Frasco 120 ml', 'Frasco 15 ml', 'Frasco 18 ml'];
+            
+            if (blisterCapsulas.includes(unit)) {
+                return 'https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/bcac02e8-82eb-49a1-903b-2b4f0edef4d0';
+            } else if (blisterComprimidos.includes(unit)) {
+                return 'https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/554e6315-e375-493d-adf4-cf9232f3b0d7';
+            } else if (frascoVidrio.includes(unit)) {
+                return 'https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/5f2ff382-3a0c-4828-8a3f-f747dce0af71';
+            } else {
+                return 'https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/affac7e1-e0a8-44f7-88ae-f55584ee3933';
+            }
+        }
+
+        function displayProducts() {
+            const grid = document.getElementById('productsGrid');
+            if (products.length === 0) {
+                grid.innerHTML = '<div class="no-results" style="grid-column: 1/-1;">No se encontraron productos que coincidan con tu búsqueda</div>';
+                document.getElementById('productCount').textContent = `Productos (0)`;
+                return;
+            }
+
+            grid.innerHTML = products.map(product => `
+                <div class="store-product-card">
+                    <div class="store-product-image"><img src="${getProductImage(product.unit)}" alt="${product.name}"></div>
+                    <div class="store-product-category">${product.category}</div>
+                    <h3 class="store-product-name">${product.name}</h3>
+                    <div class="store-product-description">${product.description}</div>
+                    <div class="store-product-unit">${product.unit}</div>
+                    <div class="store-product-price">${product.price.toLocaleString('es-ES', {minimumFractionDigits: 2})}€</div>
+                    <button class="add-to-cart-btn" onclick="addToCart(${product.id})">Añadir al Carrito</button>
+                </div>
+            `).join('');
+
+            document.getElementById('productCount').textContent = `Productos (${products.length})`;
+        }
+
+        let cart = [];
+        let currentUser = null;
+
+        // Sistema de autenticación
+        function loadUsers() {
+            try {
+                const saved = localStorage.getItem('pharmaUsers');
+                return saved ? JSON.parse(saved) : {};
+            } catch (e) {
+                console.error('Error cargando usuarios:', e);
+                return {};
+            }
+        }
+
+        function saveUsers(users) {
+            try {
+                localStorage.setItem('pharmaUsers', JSON.stringify(users));
+            } catch (e) {
+                console.error('Error guardando usuarios:', e);
+            }
+        }
+
+        function loadCurrentUser() {
+            try {
+                const saved = localStorage.getItem('pharmaCurrentUser');
+                if (saved && saved !== 'null') {
+                    currentUser = JSON.parse(saved);
+                    updateNavBar();
+                }
+            } catch (e) {
+                console.error('Error cargando usuario actual:', e);
+                currentUser = null;
+            }
+        }
+
+        function saveCurrentUser(user) {
+            try {
+                localStorage.setItem('pharmaCurrentUser', JSON.stringify(user));
+                currentUser = user;
+                updateNavBar();
+            } catch (e) {
+                console.error('Error guardando usuario actual:', e);
+            }
+        }
+
+        function validateEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+
+        function hashPassword(password) {
+            let hash = 0;
+            for (let i = 0; i < password.length; i++) {
+                const char = password.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return Math.abs(hash).toString(16);
+        }
+
+        function toggleAuthForm() {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            
+            loginForm.classList.toggle('hidden');
+            registerForm.classList.toggle('hidden');
+            
+            document.getElementById('loginError').innerHTML = '';
+            document.getElementById('registerError').innerHTML = '';
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const errorDiv = document.getElementById('loginError');
+            
+            errorDiv.innerHTML = '';
+
+            if (!email || !password) {
+                errorDiv.innerHTML = '<div class="auth-error">Por favor completa todos los campos</div>';
+            showNotification('Por favor completa todos los campos', 'warning');
+                return;
+            }
+
+            const users = loadUsers();
+            const user = Object.values(users).find(u => u.email === email);
+
+            if (!user) {
+                errorDiv.innerHTML = '<div class="auth-error">Email o contraseña incorrectos</div>';
+                return;
+            }
+
+            if (user.password !== hashPassword(password)) {
+                errorDiv.innerHTML = '<div class="auth-error">Email o contraseña incorrectos</div>';
+                return;
+            }
+
+            saveCurrentUser(user);
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
+            goToHome();
+            showNotification(`¡Bienvenido ${user.name}!`, 'success');
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('registerName').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const password = document.getElementById('registerPassword').value;
+            const passwordConfirm = document.getElementById('registerPasswordConfirm').value;
+            const errorDiv = document.getElementById('registerError');
+            
+            errorDiv.innerHTML = '';
+
+            if (!name || !email || !password || !passwordConfirm) {
+                errorDiv.innerHTML = '<div class="auth-error">Por favor completa todos los campos</div>';
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                errorDiv.innerHTML = '<div class="auth-error">Por favor ingresa un email válido</div>';
+                return;
+            }
+
+            if (password.length < 6) {
+                errorDiv.innerHTML = '<div class="auth-error">La contraseña debe tener al menos 6 caracteres</div>';
+                return;
+            }
+
+            if (password !== passwordConfirm) {
+                errorDiv.innerHTML = '<div class="auth-error">Las contraseñas no coinciden</div>';
+                return;
+            }
+
+            const users = loadUsers();
+            
+            if (Object.values(users).find(u => u.email === email)) {
+                errorDiv.innerHTML = '<div class="auth-error">Este email ya está registrado</div>';
+                return;
+            }
+
+            const newUser = {
+                id: Date.now().toString(),
+                name: name,
+                email: email,
+                password: hashPassword(password),
+                createdAt: new Date().toISOString()
+            };
+
+            users[newUser.id] = newUser;
+            saveUsers(users);
+            saveCurrentUser(newUser);
+            
+            document.getElementById('registerName').value = '';
+            document.getElementById('registerEmail').value = '';
+            document.getElementById('registerPassword').value = '';
+            document.getElementById('registerPasswordConfirm').value = '';
+            
+            goToHome();
+            showNotification(`¡Cuenta creada exitosamente ${newUser.name}!`, 'success');
+        }
+
+        function logout() {
+            currentUser = null;
+            try {
+                localStorage.removeItem('pharmaCurrentUser');
+            } catch (e) {
+                console.error('Error al cerrar sesión:', e);
+            }
+            updateNavBar();
+            goToLogin();
+            showNotification('Sesión cerrada correctamente', 'info');
+        }
+
+        function updateNavBar() {
+            const navProducts = document.getElementById('navProducts');
+            const navHome = document.getElementById('navHome');
+            const navLogin = document.getElementById('navLogin');
+            const navLogout = document.getElementById('navLogout');
+            const cartButton = document.getElementById('cartButton');
+
+            if (currentUser) {
+                navLogin.style.display = 'none';
+                navLogout.style.display = 'inline-block';
+                navHome.style.display = 'inline-block';
+                navProducts.style.display = 'inline-block';
+            } else {
+                navLogin.style.display = 'inline-block';
+                navLogout.style.display = 'none';
+                navHome.style.display = 'none';
+                navProducts.style.display = 'none';
+            }
+        }
+
+        function goToLogin() {
+            document.getElementById('landingPage').classList.add('hidden');
+            document.getElementById('storePage').classList.add('hidden');
+            document.getElementById('profilePage').classList.add('hidden');
+            document.getElementById('authPage').classList.remove('hidden');
+            
+            if (!document.getElementById('loginForm').classList.contains('hidden')) {
+                document.getElementById('loginError').innerHTML = '';
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPassword').value = '';
+            }
+        }
+
+        function goToProfile() {
+            if (!currentUser) {
+                goToLogin();
+                return;
+            }
+            
+            document.getElementById('landingPage').classList.add('hidden');
+            document.getElementById('storePage').classList.add('hidden');
+            document.getElementById('authPage').classList.add('hidden');
+            document.getElementById('profilePage').classList.remove('hidden');
+            
+            const firstLetter = currentUser.name.charAt(0).toUpperCase();
+            document.getElementById('userAvatar').textContent = firstLetter;
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('userEmail').textContent = currentUser.email;
+        }
+
+        // Cargar carrito desde localStorage con validación
+        function loadCart() {
+            try {
+                const saved = localStorage.getItem('pharmaCart');
+                const timestamp = localStorage.getItem('pharmaCartTimestamp');
+                const now = Date.now();
+                
+                // Expirar carrito después de 7 días
+                if (timestamp && (now - parseInt(timestamp) > 7 * 24 * 60 * 60 * 1000)) {
+                    localStorage.removeItem('pharmaCart');
+                    localStorage.removeItem('pharmaCartTimestamp');
+                    cart = [];
+                } else if (saved) {
+                    cart = JSON.parse(saved);
+                    // Validar que todos los productos existan
+                    cart = cart.filter(item => allProducts.find(p => p.id === item.id));
+                }
+                updateCartUI();
+            } catch (e) {
+                console.error('Error cargando carrito:', e);
+                cart = [];
+            }
+        }
+
+        // Guardar carrito en localStorage con metadata
+        function saveCart() {
+            try {
+                localStorage.setItem('pharmaCart', JSON.stringify(cart));
+                localStorage.setItem('pharmaCartTimestamp', Date.now().toString());
+                localStorage.setItem('pharmaCartCount', cart.length.toString());
+            } catch (e) {
+                if (e.name === 'QuotaExceededError') {
+                    showNotification('⚠️ Espacio de almacenamiento lleno');
+                }
+            }
+        }
+
+        // Limpiar carrito y localStorage
+        function clearCart() {
+            cart = [];
+            try {
+                localStorage.removeItem('pharmaCart');
+                localStorage.removeItem('pharmaCartTimestamp');
+                localStorage.removeItem('pharmaCartCount');
+            } catch (e) {
+                console.error('Error limpiando carrito:', e);
+            }
+            updateCartUI();
+            showNotification('Carrito vaciado', 'warning');
+        }
+
+        // Exportar carrito como JSON
+        function exportCart() {
+            if (cart.length === 0) {
+                showNotification('El carrito está vacío', 'info');
+                return;
+            }
+            const dataStr = JSON.stringify(cart, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `pharmaloop-carrito-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            showNotification('Carrito descargado correctamente', 'success');
+        }
+
+        // Obtener resumen del carrito
+        function getCartSummary() {
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const items = cart.reduce((sum, item) => sum + item.quantity, 0);
+            return { total, items, count: cart.length };
+        }
+
+        function addToCart(productId) {
+            const product = allProducts.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
+            saveCart();
+            updateCartUI();
+            showNotification(`${product.name} añadido al carrito`, 'success');
+        }
+
+        function updateCartUI() {
+            const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartButton = document.getElementById('cartButton');
+            if (cartButton) {
+                cartButton.textContent = `🛒 Carrito (${cartCount})`;
+            }
+            displayCart();
+        }
+
+        function showNotification(message, type = 'success', duration = 3000) {
+            const notification = document.createElement('div');
+            
+            // Colores según tipo
+            const colors = {
+                success: { bg: '#10b981', icon: '✓' },
+                error: { bg: '#ef4444', icon: '✕' },
+                warning: { bg: '#f59e0b', icon: '⚠' },
+                info: { bg: '#3b82f6', icon: 'ℹ' },
+                loading: { bg: '#8b5cf6', icon: '⏳' }
+            };
+            
+            const config = colors[type] || colors.success;
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${config.bg};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                z-index: 3000;
+                animation: slideIn 0.3s ease;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+                font-weight: 500;
+                min-width: 280px;
+                max-width: 400px;
+            `;
+            
+            const icon = document.createElement('span');
+            icon.textContent = config.icon;
+            icon.style.cssText = `
+                font-size: 1.3rem;
+                font-weight: bold;
+                flex-shrink: 0;
+            `;
+            
+            const text = document.createElement('span');
+            text.textContent = message;
+            text.style.cssText = `
+                flex: 1;
+                font-size: 0.95rem;
+            `;
+            
+            notification.appendChild(icon);
+            notification.appendChild(text);
+            
+            // Barra de progreso
+            if (duration > 0) {
+                const progressBar = document.createElement('div');
+                progressBar.style.cssText = `
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    height: 3px;
+                    background: rgba(255, 255, 255, 0.5);
+                    border-radius: 0 0 12px 0;
+                    animation: progressAnimation ${duration}ms linear forwards;
+                `;
+                
+                // Agregar animación de progreso al document
+                if (!document.querySelector('#notificationStyles')) {
+                    const style = document.createElement('style');
+                    style.id = 'notificationStyles';
+                    style.textContent = `
+                        @keyframes progressAnimation {
+                            from { width: 100%; }
+                            to { width: 0%; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                notification.appendChild(progressBar);
+            }
+            
+            document.body.appendChild(notification);
+            
+            if (duration > 0) {
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }, duration);
+            }
+            
+            return notification;
+        }
+
+        function toggleCart() {
+            const cartPanel = document.getElementById('cartPanel');
+            if (cartPanel) {
+                cartPanel.classList.toggle('hidden');
+            }
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            saveCart();
+            updateCartUI();
+        }
+
+        function updateQuantity(productId, quantity) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity = Math.max(1, quantity);
+                saveCart();
+                updateCartUI();
+            }
+        }
+
+        function displayCart() {
+            const cartList = document.getElementById('cartList');
+            if (!cartList) return;
+
+            if (cart.length === 0) {
+                cartList.innerHTML = '<p style="text-align: center; color: #64748b; padding: 2rem;">Tu carrito está vacío</p>';
+                return;
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            cartList.innerHTML = `
+                <div style="max-height: 400px; overflow-y: auto;">
+                    ${cart.map(item => `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid #e2e8f0;">
+                            <div style="flex: 1;">
+                                <h4 style="margin: 0 0 0.5rem 0; font-size: 0.95rem;">${item.name}</h4>
+                                <p style="margin: 0; font-size: 0.85rem; color: #64748b;">${item.price.toLocaleString('es-ES', {minimumFractionDigits: 2})}€ x ${item.quantity}</p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})" style="width: 28px; height: 28px; border: 1px solid #e2e8f0; background: white; cursor: pointer; border-radius: 4px;">-</button>
+                                <span style="width: 30px; text-align: center;">${item.quantity}</span>
+                                <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})" style="width: 28px; height: 28px; border: 1px solid #e2e8f0; background: white; cursor: pointer; border-radius: 4px;">+</button>
+                                <button onclick="removeFromCart(${item.id})" style="width: 28px; height: 28px; border: 1px solid #e2e8f0; background: #fee2e2; color: var(--primary); cursor: pointer; border-radius: 4px; margin-left: 0.5rem;">✕</button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div style="padding: 1rem; border-top: 2px solid #e2e8f0; background: #f8fafc;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-weight: 600;">
+                        <span>Total:</span>
+                        <span style="color: var(--primary); font-size: 1.2rem;">${total.toLocaleString('es-ES', {minimumFractionDigits: 2})}€</span>
+                    </div>
+                    <button onclick="proceedToPayment()" style="width: 100%; padding: 0.8rem; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Proceder al Pago</button>
+</parameter>
+                    <button onclick="toggleCart()" style="width: 100%; padding: 0.8rem; background: white; color: var(--primary); border: 1px solid var(--primary); border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 0.5rem;">Seguir Comprando</button>
+                </div>
+            `;
+        }
+
+        function filterProducts() {
+            const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+            const selectedCategories = Array.from(document.querySelectorAll('#categoriesFilter input[type="checkbox"]:checked'))
+                .map(cb => cb.value);
+
+            const selectedPrices = Array.from(document.querySelectorAll('.filter-options input[type="checkbox"]:checked'))
+                .filter(cb => ['0-25', '25-50', '50-100', '100+'].includes(cb.value))
+                .map(cb => cb.value);
+
+            products = allProducts.filter(product => {
+                const matchSearch = product.name.toLowerCase().includes(searchTerm) || 
+                                  product.description.toLowerCase().includes(searchTerm) ||
+                                  product.category.toLowerCase().includes(searchTerm);
+                
+                const matchCategory = selectedCategories.length === 0 || selectedCategories.includes(product.category);
+                
+                let matchPrice = selectedPrices.length === 0;
+                if (!matchPrice) {
+                    matchPrice = selectedPrices.some(range => {
+                        if (range === '0-25') return product.price <= 25;
+                        if (range === '25-50') return product.price > 25 && product.price <= 50;
+                        if (range === '50-100') return product.price > 50 && product.price <= 100;
+                        if (range === '100+') return product.price > 100;
+                    });
+                }
+
+                return matchSearch && matchCategory && matchPrice;
+            });
+
+            displayProducts();
+        }
+
+        function sortProducts() {
+            currentSort = document.querySelector('.sort-select').value;
+            
+            switch(currentSort) {
+                case 'precio-asc':
+                    products.sort((a, b) => a.price - b.price);
+                    break;
+                case 'precio-desc':
+                    products.sort((a, b) => b.price - a.price);
+                    break;
+                case 'nombre':
+                    products.sort((a, b) => a.name.localeCompare(b.name, 'es'));
+                    break;
+            }
+            
+            displayProducts();
+        }
+
+        function goToHome() {
+            if (!currentUser) {
+                goToLogin();
+                return;
+            }
+            
+            document.getElementById('landingPage').classList.remove('hidden');
+            document.getElementById('storePage').classList.add('hidden');
+            document.getElementById('authPage').classList.add('hidden');
+            document.getElementById('profilePage').classList.add('hidden');
+            document.getElementById('cartPanel').classList.add('hidden');
+            document.getElementById('cartButton').style.display = 'none';
+        }
+
+        function proceedToPayment() {
+            if (cart.length === 0) {
+                showNotification('Tu carrito está vacío', 'warning');
+                return;
+            }
+            document.getElementById('storePage').classList.add('hidden');
+            document.getElementById('paymentPage').classList.remove('hidden');
+            document.getElementById('cartPanel').classList.add('hidden');
+            document.getElementById('cartButton').style.display = 'none';
+            initializePaymentForm();
+        }
+
+        function initializePaymentForm() {
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('paymentTotal').textContent = total.toLocaleString('es-ES', {minimumFractionDigits: 2});
+            document.getElementById('itemsCount').textContent = cart.length;
+            document.getElementById('paymentItems').innerHTML = cart.map(item => `
+                <div style="display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid #e2e8f0;">
+                    <span>${item.name} x${item.quantity}</span>
+                    <span style="font-weight: 600;">${(item.price * item.quantity).toLocaleString('es-ES', {minimumFractionDigits: 2})}€</span>
+                </div>
+            `).join('');
+        }
+
+        function processPayment(event) {
+            event.preventDefault();
+            
+            const cardName = document.getElementById('cardName').value.trim();
+            const cardNumber = document.getElementById('cardNumber').value.trim();
+            const cardExpiry = document.getElementById('cardExpiry').value.trim();
+            const cardCVC = document.getElementById('cardCVC').value.trim();
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            if (!cardName || !cardNumber || !cardExpiry || !cardCVC) {
+                showNotification('Por favor completa todos los campos', 'warning');
+                return;
+            }
+
+            const cardRegex = /^\d{16}$/;
+            if (!cardRegex.test(cardNumber.replace(/\s/g, ''))) {
+                showNotification('Número de tarjeta inválido', 'error');
+                return;
+            }
+
+            const expiryRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+            if (!expiryRegex.test(cardExpiry)) {
+                showNotification('Fecha de expiración inválida (MM/YY)', 'error');
+                return;
+            }
+
+            const cvcRegex = /^\d{3,4}$/;
+            if (!cvcRegex.test(cardCVC)) {
+                showNotification('CVC inválido', 'error');
+                return;
+            }
+
+            document.getElementById('paymentForm').style.display = 'none';
+            document.getElementById('processingPayment').style.display = 'flex';
+            
+            setTimeout(() => {
+                document.getElementById('processingPayment').style.display = 'none';
+                document.getElementById('paymentSuccess').style.display = 'flex';
+            }, 3000);
+        }
+
+        function completeOrder() {
+            showNotification('¡Pedido completado exitosamente! 🎉', 'success');
+            setTimeout(() => {
+                clearCart();
+                document.getElementById('paymentPage').classList.add('hidden');
+                document.getElementById('landingPage').classList.remove('hidden');
+                goToHome();
+            }, 2000);
+        }
+
+        function cancelPayment() {
+            document.getElementById('paymentPage').classList.add('hidden');
+            document.getElementById('storePage').classList.remove('hidden');
+            document.getElementById('cartButton').style.display = 'inline-block';
+        }
+
+        function goToStore() {
+            if (!currentUser) {
+                goToLogin();
+                return;
+            }
+            
+            document.getElementById('landingPage').classList.add('hidden');
+            document.getElementById('storePage').classList.remove('hidden');
+            document.getElementById('authPage').classList.add('hidden');
+            document.getElementById('profilePage').classList.add('hidden');
+            document.getElementById('paymentPage').classList.add('hidden');
+            document.getElementById('cartButton').style.display = 'inline-block';
+            initializeCategoryFilters();
+            displayProducts();
+        }
+
+        function formatCardNumber(input) {
+            let value = input.value.replace(/\s/g, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            input.value = formattedValue;
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('paymentTotalFinal').textContent = total.toLocaleString('es-ES', {minimumFractionDigits: 2}) + '€';
+        }
+
+        function formatExpiry(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            input.value = value;
+        }
+
+        // Inicializar aplicación
+        window.addEventListener('load', () => {
+            loadCart();
+            loadCurrentUser();
+            if (!currentUser) {
+                goToLogin();
+            } else {
+                goToHome();
+            }
+        });
+
+        // Estilos adicionales para animaciones
+        const additionalStyles = document.createElement('style');
+        additionalStyles.textContent = `
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            
+                transition: all 0.3s ease;
+            }
+            
+                outline: none;
+                border-color: var(--primary);
+                box-shadow: 0 0 0 3px rgba(33, 133, 144, 0.1);
+            }
+        `;
+        document.head.appendChild(additionalStyles);
+    </script>
+</body>
+</html>
